@@ -1,0 +1,836 @@
+INFO 2025-09-20 15:11:51,770 autoreload 19744 11916 Watching for file changes with StatReloader
+WARNING 2025-09-20 15:12:09,950 log 19744 12428 Not Found: /
+WARNING 2025-09-20 15:12:09,956 basehttp 19744 12428 "GET / HTTP/1.1" 404 179
+INFO 2025-09-20 15:12:10,898 basehttp 19744 12428 - Broken pipe from ('127.0.0.1', 52686)
+INFO 2025-09-20 15:12:27,749 basehttp 19744 10652 "GET /admin/ HTTP/1.1" 302 0
+ERROR 2025-09-20 15:12:28,869 log 19744 10652 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+          ^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\staticfiles\storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\staticfiles\storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\roshi\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\staticfiles\storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'admin/css/base.css'
+ERROR 2025-09-20 15:12:28,916 basehttp 19744 10652 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 145
+WARNING 2025-09-20 15:12:29,302 log 19744 10652 Not Found: /favicon.ico
+WARNING 2025-09-20 15:12:29,304 basehttp 19744 10652 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-09-20 15:12:38,239 basehttp 19744 22660 "GET /api/status/ HTTP/1.1" 200 114
+INFO 2025-09-20 15:12:47,188 autoreload 19744 11916 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 15:12:49,422 autoreload 14972 22420 Watching for file changes with StatReloader
+INFO 2025-09-20 15:13:11,855 autoreload 14972 22420 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 15:13:13,689 autoreload 9480 5012 Watching for file changes with StatReloader
+INFO 2025-09-20 15:14:16,601 basehttp 9480 21900 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-09-20 15:14:17,791 basehttp 9480 21900 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4272
+WARNING 2025-09-20 15:14:17,835 log 9480 21900 Not Found: /static/admin/css/base.64976e0f7339.css
+WARNING 2025-09-20 15:14:17,837 log 9480 21808 Not Found: /static/admin/css/dark_mode.ef27a31af300.css
+WARNING 2025-09-20 15:14:17,837 log 9480 7748 Not Found: /static/admin/css/nav_sidebar.269a1bd44627.css
+WARNING 2025-09-20 15:14:17,843 basehttp 9480 21900 "GET /static/admin/css/base.64976e0f7339.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:14:17,843 basehttp 9480 21808 "GET /static/admin/css/dark_mode.ef27a31af300.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:14:17,845 log 9480 14952 Not Found: /static/admin/css/login.586129c60a93.css
+WARNING 2025-09-20 15:14:17,851 log 9480 22516 Not Found: /static/admin/css/responsive.107cd2690311.css
+WARNING 2025-09-20 15:14:17,851 log 9480 21808 Not Found: /static/admin/js/nav_sidebar.3b9190d420b1.js
+WARNING 2025-09-20 15:14:17,851 basehttp 9480 7748 "GET /static/admin/css/nav_sidebar.269a1bd44627.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:14:17,859 basehttp 9480 21808 "GET /static/admin/js/nav_sidebar.3b9190d420b1.js HTTP/1.1" 404 179
+WARNING 2025-09-20 15:14:17,861 log 9480 20004 Not Found: /static/admin/js/theme.ab270f56bb9c.js
+WARNING 2025-09-20 15:14:17,863 basehttp 9480 14952 "GET /static/admin/css/login.586129c60a93.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:14:17,863 basehttp 9480 22516 "GET /static/admin/css/responsive.107cd2690311.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:14:17,865 basehttp 9480 20004 "GET /static/admin/js/theme.ab270f56bb9c.js HTTP/1.1" 404 179
+WARNING 2025-09-20 15:14:54,808 log 9480 5028 Method Not Allowed: /api/recommend/
+WARNING 2025-09-20 15:14:54,818 basehttp 9480 5028 "GET /api/recommend/ HTTP/1.1" 405 40
+INFO 2025-09-20 15:16:05,413 basehttp 9480 14304 "GET /api/status/ HTTP/1.1" 200 114
+WARNING 2025-09-20 15:16:05,437 ml_predict 9480 21884 Technology model not found at C:\Users\roshi\crop_recommendation_backend\recommendations\..\models\tech_model.pkl
+WARNING 2025-09-20 15:16:05,437 ml_predict 9480 21884 Yield model not found at C:\Users\roshi\crop_recommendation_backend\recommendations\..\models\yield_model.pkl
+WARNING 2025-09-20 15:16:05,443 ml_predict 9480 21884 Scaler not found at C:\Users\roshi\crop_recommendation_backend\recommendations\..\models\scaler.pkl
+WARNING 2025-09-20 15:16:05,443 ml_predict 9480 21884 Label encoders not found at C:\Users\roshi\crop_recommendation_backend\recommendations\..\models\label_encoders.pkl
+ERROR 2025-09-20 15:16:05,646 ml_predict 9480 21884 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 15:16:05,646 ml_predict 9480 21884 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 15:16:05,648 views 9480 21884 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 15:16:05,678 basehttp 9480 21884 "POST /api/recommend/ HTTP/1.1" 201 3390
+INFO 2025-09-20 15:16:05,713 basehttp 9480 12460 "GET /api/recommend/history/ HTTP/1.1" 200 253
+INFO 2025-09-20 15:16:11,076 basehttp 9480 14168 "GET /api/recommend/history/ HTTP/1.1" 200 253
+INFO 2025-09-20 15:17:53,883 basehttp 9480 16228 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-09-20 15:17:53,917 basehttp 9480 16228 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4272
+WARNING 2025-09-20 15:17:53,969 log 9480 16228 Not Found: /static/admin/css/base.64976e0f7339.css
+WARNING 2025-09-20 15:17:53,975 log 9480 6052 Not Found: /static/admin/css/dark_mode.ef27a31af300.css
+WARNING 2025-09-20 15:17:53,979 basehttp 9480 16228 "GET /static/admin/css/base.64976e0f7339.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:17:53,982 log 9480 16856 Not Found: /static/admin/css/nav_sidebar.269a1bd44627.css
+WARNING 2025-09-20 15:17:53,987 basehttp 9480 6052 "GET /static/admin/css/dark_mode.ef27a31af300.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:17:53,993 log 9480 16228 Not Found: /static/admin/css/base.64976e0f7339.css
+WARNING 2025-09-20 15:17:53,994 log 9480 6052 Not Found: /static/admin/css/dark_mode.ef27a31af300.css
+WARNING 2025-09-20 15:17:53,997 log 9480 2548 Not Found: /static/admin/css/login.586129c60a93.css
+WARNING 2025-09-20 15:17:54,002 log 9480 22408 Not Found: /static/admin/css/responsive.107cd2690311.css
+WARNING 2025-09-20 15:17:54,002 basehttp 9480 16856 "GET /static/admin/css/nav_sidebar.269a1bd44627.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:17:54,006 basehttp 9480 6052 "GET /static/admin/css/dark_mode.ef27a31af300.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:17:54,006 log 9480 16856 Not Found: /static/admin/js/nav_sidebar.3b9190d420b1.js
+WARNING 2025-09-20 15:17:54,006 basehttp 9480 16228 "GET /static/admin/css/base.64976e0f7339.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:17:54,012 basehttp 9480 2548 "GET /static/admin/css/login.586129c60a93.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:17:54,012 basehttp 9480 22408 "GET /static/admin/css/responsive.107cd2690311.css HTTP/1.1" 404 179
+WARNING 2025-09-20 15:17:54,014 log 9480 12148 Not Found: /static/admin/js/theme.ab270f56bb9c.js
+WARNING 2025-09-20 15:17:54,014 basehttp 9480 16856 "GET /static/admin/js/nav_sidebar.3b9190d420b1.js HTTP/1.1" 404 179
+WARNING 2025-09-20 15:17:54,022 basehttp 9480 12148 "GET /static/admin/js/theme.ab270f56bb9c.js HTTP/1.1" 404 179
+INFO 2025-09-20 15:19:20,441 basehttp 9480 22888 "GET /api/status/ HTTP/1.1" 200 114
+INFO 2025-09-20 15:19:32,558 basehttp 9480 11184 "GET /api/recommend/history/ HTTP/1.1" 200 253
+INFO 2025-09-20 15:19:35,926 basehttp 9480 14192 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+INFO 2025-09-20 15:21:48,361 autoreload 9480 5012 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 15:21:51,469 autoreload 9612 22604 Watching for file changes with StatReloader
+INFO 2025-09-20 15:25:27,623 basehttp 9612 20896 "GET /api/status/ HTTP/1.1" 200 114
+ERROR 2025-09-20 15:25:29,860 ml_predict 9612 20956 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 15:25:29,864 ml_predict 9612 20956 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 15:25:29,867 views 9612 20956 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 15:25:29,910 basehttp 9612 20956 "POST /api/recommend/ HTTP/1.1" 201 3390
+INFO 2025-09-20 15:25:29,974 basehttp 9612 2468 "GET /api/recommend/history/ HTTP/1.1" 200 455
+INFO 2025-09-20 15:29:33,599 autoreload 9612 22604 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 15:29:35,275 autoreload 23264 19680 Watching for file changes with StatReloader
+INFO 2025-09-20 15:30:22,134 basehttp 23264 8112 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 15:30:23,812 ml_predict 23264 8112 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 15:30:23,812 ml_predict 23264 8112 Prediction completed for Sugarcane at coordinates (28.6139, 77.209)
+INFO 2025-09-20 15:30:23,812 views 23264 8112 ML prediction successful for Sugarcane at delhi
+INFO 2025-09-20 15:30:23,859 basehttp 23264 8112 "POST /api/recommend/ HTTP/1.1" 201 3416
+INFO 2025-09-20 15:30:39,467 basehttp 23264 19904 "GET /api/status/ HTTP/1.1" 200 114
+INFO 2025-09-20 15:30:43,278 basehttp 23264 19904 "GET /api/recommend/history/ HTTP/1.1" 200 664
+INFO 2025-09-20 15:30:48,720 basehttp 23264 4088 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-09-20 15:30:48,830 basehttp 23264 4088 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4272
+INFO 2025-09-20 15:30:48,907 basehttp 23264 23044 "GET /static/admin/css/nav_sidebar.269a1bd44627.css HTTP/1.1" 200 779
+INFO 2025-09-20 15:30:48,907 basehttp 23264 4088 "GET /static/admin/css/base.64976e0f7339.css HTTP/1.1" 200 4847
+INFO 2025-09-20 15:30:48,910 basehttp 23264 14288 "GET /static/admin/css/dark_mode.ef27a31af300.css HTTP/1.1" 200 849
+INFO 2025-09-20 15:30:48,917 basehttp 23264 20060 "GET /static/admin/css/login.586129c60a93.css HTTP/1.1" 200 417
+INFO 2025-09-20 15:30:48,920 basehttp 23264 22588 "GET /static/admin/css/responsive.107cd2690311.css HTTP/1.1" 200 3432
+INFO 2025-09-20 15:30:48,947 basehttp 23264 16444 "GET /static/admin/js/theme.ab270f56bb9c.js HTTP/1.1" 200 605
+INFO 2025-09-20 15:30:48,953 basehttp 23264 23044 "GET /static/admin/js/nav_sidebar.3b9190d420b1.js HTTP/1.1" 200 845
+INFO 2025-09-20 15:31:02,771 basehttp 23264 16780 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4435
+INFO 2025-09-20 15:31:28,264 basehttp 23264 11452 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-09-20 15:31:28,390 basehttp 23264 11452 "GET /admin/ HTTP/1.1" 200 6398
+INFO 2025-09-20 15:31:28,449 basehttp 23264 11452 "GET /static/admin/css/dashboard.e90f2068217b.css HTTP/1.1" 200 267
+INFO 2025-09-20 15:31:28,462 basehttp 23264 3020 "GET /static/admin/img/icon-addlink.d519b3bab011.svg HTTP/1.1" 200 206
+INFO 2025-09-20 15:31:28,488 basehttp 23264 5348 "GET /static/admin/img/icon-changelink.18d2fd706348.svg HTTP/1.1" 200 269
+INFO 2025-09-20 15:31:43,260 basehttp 23264 7632 "GET /admin/password_change/ HTTP/1.1" 200 7446
+INFO 2025-09-20 15:31:43,294 basehttp 23264 7632 "GET /static/admin/css/forms.3b181cba6653.css HTTP/1.1" 200 2236
+INFO 2025-09-20 15:31:43,314 basehttp 23264 7632 "GET /static/admin/css/widgets.0a3765e806b3.css HTTP/1.1" 200 2561
+INFO 2025-09-20 15:32:15,726 basehttp 23264 23232 "POST /admin/password_change/ HTTP/1.1" 200 7700
+INFO 2025-09-20 15:32:29,023 basehttp 23264 19588 "GET /admin/recommendations/recommendation/ HTTP/1.1" 200 15570
+INFO 2025-09-20 15:32:29,067 basehttp 23264 1988 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-09-20 15:32:29,076 basehttp 23264 19588 "GET /static/admin/css/changelists.9237a1ac391b.css HTTP/1.1" 200 1564
+INFO 2025-09-20 15:32:29,076 basehttp 23264 22464 "GET /static/admin/js/jquery.init.b7781a0897fc.js HTTP/1.1" 200 236
+INFO 2025-09-20 15:32:29,088 basehttp 23264 19420 "GET /static/admin/js/admin/RelatedObjectLookups.8609f99b9ab2.js HTTP/1.1" 200 2301
+INFO 2025-09-20 15:32:29,088 basehttp 23264 4832 "GET /static/admin/js/vendor/jquery/jquery.min.641dd1437010.js HTTP/1.1" 200 31011
+INFO 2025-09-20 15:32:29,090 basehttp 23264 2928 "GET /static/admin/js/core.cf103cd04ebf.js HTTP/1.1" 200 1505
+INFO 2025-09-20 15:32:29,100 basehttp 23264 1988 "GET /static/admin/js/actions.eac7e3441574.js HTTP/1.1" 200 1874
+INFO 2025-09-20 15:32:29,109 basehttp 23264 19588 "GET /static/admin/js/urlify.ae970a820212.js HTTP/1.1" 200 2578
+INFO 2025-09-20 15:32:29,109 basehttp 23264 22464 "GET /static/admin/js/prepopulate.bd2361dfd64d.js HTTP/1.1" 200 536
+INFO 2025-09-20 15:32:29,123 basehttp 23264 19420 "GET /static/admin/js/vendor/xregexp/xregexp.min.b0439563a5d3.js HTTP/1.1" 200 37609
+INFO 2025-09-20 15:32:29,123 basehttp 23264 4832 "GET /static/admin/img/search.7cf54ff789c6.svg HTTP/1.1" 200 264
+INFO 2025-09-20 15:32:29,167 basehttp 23264 4832 "GET /static/admin/js/filters.0e360b7a9f80.js HTTP/1.1" 200 502
+INFO 2025-09-20 15:32:29,188 basehttp 23264 19420 "GET /static/admin/img/tooltag-add.e59d620a9742.svg HTTP/1.1" 200 203
+INFO 2025-09-20 15:32:29,188 basehttp 23264 22464 "GET /static/admin/img/sorting-icons.3a097b59f104.svg HTTP/1.1" 200 366
+INFO 2025-09-20 15:32:29,930 basehttp 23264 19420 "GET /admin/recommendations/recommendation/add/ HTTP/1.1" 200 15398
+INFO 2025-09-20 15:32:29,966 basehttp 23264 19420 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-09-20 15:32:29,970 basehttp 23264 22464 "GET /static/admin/js/collapse.f84e7410290f.js HTTP/1.1" 200 614
+INFO 2025-09-20 15:32:29,978 basehttp 23264 4832 "GET /static/admin/js/prepopulate_init.6cac7f3105b8.js HTTP/1.1" 200 277
+INFO 2025-09-20 15:32:30,017 basehttp 23264 4832 "GET /static/admin/js/change_form.9d8ca4f96b75.js HTTP/1.1" 200 322
+INFO 2025-09-20 15:33:15,319 basehttp 23264 14592 "POST /admin/recommendations/recommendation/add/ HTTP/1.1" 302 0
+INFO 2025-09-20 15:33:15,399 basehttp 23264 14592 "GET /admin/recommendations/recommendation/ HTTP/1.1" 200 16399
+INFO 2025-09-20 15:33:15,424 basehttp 23264 14592 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-09-20 15:33:15,467 basehttp 23264 14592 "GET /static/admin/img/icon-yes.d2f9f035226a.svg HTTP/1.1" 200 266
+INFO 2025-09-20 15:33:29,357 basehttp 23264 9804 "GET /admin/recommendations/recommendation/ HTTP/1.1" 200 16134
+INFO 2025-09-20 15:33:29,380 basehttp 23264 9804 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-09-20 15:33:31,753 basehttp 23264 9804 "GET /admin/recommendations/recommendation/add/ HTTP/1.1" 200 15398
+INFO 2025-09-20 15:33:31,783 basehttp 23264 9804 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-09-20 15:33:48,070 basehttp 23264 15980 "GET /api/status/ HTTP/1.1" 200 114
+INFO 2025-09-20 15:34:11,895 basehttp 23264 15720 "GET /api/status/ HTTP/1.1" 200 114
+INFO 2025-09-20 15:43:06,360 autoreload 23264 19680 C:\Users\roshi\crop_recommendation_backend\recommendations\serializers.py changed, reloading.
+INFO 2025-09-20 15:43:14,536 autoreload 11452 23500 Watching for file changes with StatReloader
+INFO 2025-09-20 15:47:37,708 basehttp 11452 9488 "GET /api/status/ HTTP/1.1" 200 114
+ERROR 2025-09-20 15:47:40,870 ml_predict 11452 7632 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 15:47:40,875 ml_predict 11452 7632 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 15:47:40,877 views 11452 7632 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 15:47:40,921 basehttp 11452 7632 "POST /api/recommend/ HTTP/1.1" 201 5637
+INFO 2025-09-20 15:47:41,004 basehttp 11452 14724 "GET /api/recommend/history/ HTTP/1.1" 200 1072
+INFO 2025-09-20 15:48:10,080 autoreload 11452 23500 C:\Users\roshi\crop_recommendation_backend\recommendations\serializers.py changed, reloading.
+INFO 2025-09-20 15:48:11,820 autoreload 17404 19480 Watching for file changes with StatReloader
+INFO 2025-09-20 15:48:49,031 basehttp 17404 18048 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 15:48:50,617 ml_predict 17404 18048 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.076&lon=72.8777&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 15:48:50,620 ml_predict 17404 18048 Prediction completed for Sugarcane at coordinates (19.076, 72.8777)
+INFO 2025-09-20 15:48:50,620 views 17404 18048 ML prediction successful for Sugarcane at Mumbai
+INFO 2025-09-20 15:48:50,667 basehttp 17404 18048 "POST /api/recommend/ HTTP/1.1" 201 5682
+INFO 2025-09-20 15:49:17,578 basehttp 17404 18388 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 15:49:17,934 ml_predict 17404 18388 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.076&lon=72.8777&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 15:49:17,935 ml_predict 17404 18388 Prediction completed for Sugarcane at coordinates (19.076, 72.8777)
+INFO 2025-09-20 15:49:17,935 views 17404 18388 ML prediction successful for Sugarcane at Mumbai
+INFO 2025-09-20 15:49:17,965 basehttp 17404 18388 "POST /api/recommend/ HTTP/1.1" 201 5700
+INFO 2025-09-20 15:49:26,928 basehttp 17404 12552 "GET /api/recommend/history/ HTTP/1.1" 200 1496
+INFO 2025-09-20 15:49:35,626 basehttp 17404 9060 "GET /api/status/ HTTP/1.1" 200 114
+INFO 2025-09-20 15:49:39,011 basehttp 17404 9060 "GET /admin/ HTTP/1.1" 200 6782
+INFO 2025-09-20 15:50:06,403 basehttp 17404 21172 "GET /api/recommend/history/ HTTP/1.1" 200 1496
+INFO 2025-09-20 16:02:47,622 autoreload 17404 19480 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 16:02:54,658 autoreload 10308 17252 Watching for file changes with StatReloader
+INFO 2025-09-20 16:11:51,478 basehttp 10308 23464 "GET /api/status/ HTTP/1.1" 200 114
+ERROR 2025-09-20 16:11:54,137 ml_predict 10308 9696 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 16:11:54,142 ml_predict 10308 9696 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 16:11:54,144 views 10308 9696 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 16:11:54,213 basehttp 10308 9696 "POST /api/recommend/ HTTP/1.1" 201 5637
+INFO 2025-09-20 16:11:54,291 basehttp 10308 1252 "GET /api/recommend/history/ HTTP/1.1" 200 1698
+INFO 2025-09-20 16:13:40,346 basehttp 10308 12460 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 16:13:40,627 ml_predict 10308 12460 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.076&lon=72.8777&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 16:13:40,632 ml_predict 10308 12460 Prediction completed for Sugarcane at coordinates (19.076, 72.8777)
+INFO 2025-09-20 16:13:40,634 views 10308 12460 ML prediction successful for Sugarcane at Mumbai
+INFO 2025-09-20 16:13:40,690 basehttp 10308 12460 "POST /api/recommend/ HTTP/1.1" 201 5686
+INFO 2025-09-20 16:18:27,020 basehttp 10308 10488 "GET /api/status/ HTTP/1.1" 200 114
+ERROR 2025-09-20 16:18:27,207 ml_predict 10308 22544 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 16:18:27,211 ml_predict 10308 22544 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 16:18:27,215 views 10308 22544 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 16:18:27,277 basehttp 10308 22544 "POST /api/recommend/ HTTP/1.1" 201 5638
+INFO 2025-09-20 16:18:27,375 basehttp 10308 15664 "GET /api/recommend/history/ HTTP/1.1" 200 2112
+INFO 2025-09-20 16:19:09,573 autoreload 10308 17252 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 16:19:12,024 autoreload 10988 22192 Watching for file changes with StatReloader
+INFO 2025-09-20 16:24:27,340 basehttp 10988 21848 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 16:24:28,792 ml_predict 10988 21848 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.076&lon=72.8777&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 16:24:28,793 ml_predict 10988 21848 Prediction completed for Maize at coordinates (19.076, 72.8777)
+INFO 2025-09-20 16:24:28,794 views 10988 21848 ML prediction successful for Maize at Mumbai
+INFO 2025-09-20 16:24:28,815 basehttp 10988 21848 "POST /api/recommend/ HTTP/1.1" 201 5649
+INFO 2025-09-20 16:30:22,652 autoreload 10988 22192 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 16:30:25,837 autoreload 17356 19640 Watching for file changes with StatReloader
+INFO 2025-09-20 16:31:14,772 autoreload 17356 19640 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 16:31:17,161 autoreload 20300 14384 Watching for file changes with StatReloader
+INFO 2025-09-20 16:31:29,799 autoreload 20300 14384 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 16:31:32,680 autoreload 16888 2300 Watching for file changes with StatReloader
+INFO 2025-09-20 16:38:54,868 autoreload 16888 2300 C:\Users\roshi\crop_recommendation_backend\recommendations\serializers.py changed, reloading.
+INFO 2025-09-20 16:38:59,436 autoreload 15692 17056 Watching for file changes with StatReloader
+INFO 2025-09-20 16:39:51,309 basehttp 15692 22740 "GET /api/status/ HTTP/1.1" 200 116
+ERROR 2025-09-20 16:39:53,591 ml_predict 15692 4836 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+ERROR 2025-09-20 16:39:53,595 ml_predict 15692 4836 Error in predict_recommendation: name 'nutrients' is not defined
+INFO 2025-09-20 16:39:53,595 views 15692 4836 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 16:39:53,638 basehttp 15692 4836 "POST /api/recommend/ HTTP/1.1" 201 807
+INFO 2025-09-20 16:39:53,706 basehttp 15692 9576 "GET /api/recommend/history/ HTTP/1.1" 200 2521
+INFO 2025-09-20 16:40:43,918 autoreload 15692 17056 C:\Users\roshi\crop_recommendation_backend\recommendations\serializers.py changed, reloading.
+INFO 2025-09-20 16:40:45,126 autoreload 4580 22880 Watching for file changes with StatReloader
+INFO 2025-09-20 16:41:04,034 basehttp 4580 5136 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 16:41:04,931 ml_predict 4580 5136 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.076&lon=72.8777&appid=your_openweather_api_key_here&units=metric
+ERROR 2025-09-20 16:41:04,931 ml_predict 4580 5136 Error in predict_recommendation: name 'nutrients' is not defined
+INFO 2025-09-20 16:41:04,931 views 4580 5136 ML prediction successful for Wheat at Mumbai
+INFO 2025-09-20 16:41:04,956 basehttp 4580 5136 "POST /api/recommend/ HTTP/1.1" 201 812
+INFO 2025-09-20 16:42:41,017 autoreload 4580 22880 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 16:42:42,786 autoreload 324 4132 Watching for file changes with StatReloader
+INFO 2025-09-20 16:42:54,147 autoreload 324 4132 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 16:42:57,758 autoreload 22628 16808 Watching for file changes with StatReloader
+INFO 2025-09-20 16:51:56,848 basehttp 22628 23208 "GET /api/status/ HTTP/1.1" 200 116
+ERROR 2025-09-20 16:52:00,451 ml_predict 22628 23260 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 16:52:00,457 ml_predict 22628 23260 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 16:52:00,459 views 22628 23260 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 16:52:00,508 basehttp 22628 23260 "POST /api/recommend/ HTTP/1.1" 201 8642
+INFO 2025-09-20 16:52:00,579 basehttp 22628 3316 "GET /api/recommend/history/ HTTP/1.1" 200 2930
+INFO 2025-09-20 16:52:38,074 autoreload 22628 16808 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 16:52:40,028 autoreload 9960 20384 Watching for file changes with StatReloader
+INFO 2025-09-20 16:53:13,728 basehttp 9960 12708 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 16:53:14,606 ml_predict 9960 12708 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.076&lon=72.8777&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 16:53:14,606 ml_predict 9960 12708 Prediction completed for Chili at coordinates (19.076, 72.8777)
+INFO 2025-09-20 16:53:14,606 views 9960 12708 ML prediction successful for Chili at Mumbai
+INFO 2025-09-20 16:53:14,622 basehttp 9960 12708 "POST /api/recommend/ HTTP/1.1" 201 8655
+INFO 2025-09-20 17:21:26,844 autoreload 9960 20384 C:\Users\roshi\crop_recommendation_backend\recommendations\serializers.py changed, reloading.
+INFO 2025-09-20 17:21:38,429 autoreload 9432 1228 Watching for file changes with StatReloader
+INFO 2025-09-20 17:23:31,895 autoreload 9432 1228 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:23:44,460 autoreload 25480 25484 Watching for file changes with StatReloader
+INFO 2025-09-20 17:32:34,877 autoreload 24992 23296 Watching for file changes with StatReloader
+INFO 2025-09-20 17:33:00,830 autoreload 10284 22228 Watching for file changes with StatReloader
+INFO 2025-09-20 17:35:02,961 autoreload 10284 22228 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:35:03,182 autoreload 25480 25484 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:35:03,241 autoreload 24992 23296 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:35:07,489 autoreload 20168 23472 Watching for file changes with StatReloader
+INFO 2025-09-20 17:35:07,491 autoreload 24628 10100 Watching for file changes with StatReloader
+INFO 2025-09-20 17:36:48,051 autoreload 24628 10100 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 17:36:48,242 autoreload 20168 23472 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 17:36:49,175 autoreload 24064 2692 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 17:36:52,467 autoreload 5352 20472 Watching for file changes with StatReloader
+INFO 2025-09-20 17:36:53,122 autoreload 24664 23984 Watching for file changes with StatReloader
+INFO 2025-09-20 17:36:54,392 autoreload 24744 21164 Watching for file changes with StatReloader
+INFO 2025-09-20 17:37:53,915 autoreload 25316 5164 Watching for file changes with StatReloader
+INFO 2025-09-20 17:37:57,055 basehttp 5352 16372 "GET /api/status/ HTTP/1.1" 200 116
+ERROR 2025-09-20 17:38:00,615 ml_predict 5352 18132 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:38:00,620 ml_predict 5352 18132 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:38:00,626 views 5352 18132 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:38:00,704 basehttp 5352 18132 "POST /api/recommend/ HTTP/1.1" 201 13357
+INFO 2025-09-20 17:38:00,814 basehttp 5352 20880 "GET /api/recommend/history/ HTTP/1.1" 200 3340
+INFO 2025-09-20 17:38:29,641 autoreload 24744 21164 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 17:38:29,697 autoreload 5352 20472 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:38:30,090 autoreload 25316 5164 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:38:30,171 autoreload 24664 23984 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 17:38:33,115 autoreload 13236 132 Watching for file changes with StatReloader
+INFO 2025-09-20 17:38:33,123 autoreload 21972 24552 Watching for file changes with StatReloader
+INFO 2025-09-20 17:38:33,317 autoreload 23960 11272 Watching for file changes with StatReloader
+INFO 2025-09-20 17:38:33,568 autoreload 11248 24924 Watching for file changes with StatReloader
+INFO 2025-09-20 17:38:50,896 basehttp 21972 9300 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+INFO 2025-09-20 17:38:56,680 basehttp 21972 9300 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+INFO 2025-09-20 17:39:35,148 autoreload 21972 24552 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:39:35,316 autoreload 11248 24924 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:39:36,663 autoreload 13236 132 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:39:37,123 autoreload 23960 11272 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:39:40,297 autoreload 728 16812 Watching for file changes with StatReloader
+INFO 2025-09-20 17:39:40,314 autoreload 11156 22312 Watching for file changes with StatReloader
+INFO 2025-09-20 17:39:41,445 autoreload 24840 20272 Watching for file changes with StatReloader
+INFO 2025-09-20 17:39:41,614 autoreload 5384 15756 Watching for file changes with StatReloader
+INFO 2025-09-20 17:40:08,641 basehttp 11156 25596 "GET /api/status/ HTTP/1.1" 200 116
+ERROR 2025-09-20 17:40:11,331 ml_predict 11156 2708 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:40:11,339 ml_predict 11156 2708 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:40:11,342 views 11156 2708 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:40:11,389 basehttp 11156 2708 "POST /api/recommend/ HTTP/1.1" 201 13297
+INFO 2025-09-20 17:40:11,465 basehttp 11156 1872 "GET /api/recommend/history/ HTTP/1.1" 200 3543
+INFO 2025-09-20 17:40:45,741 basehttp 11156 2692 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 17:40:45,969 ml_predict 11156 2692 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=22.7196&lon=75.8577&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:40:45,972 ml_predict 11156 2692 Prediction completed for Sugarcane at coordinates (22.7196, 75.8577)
+INFO 2025-09-20 17:40:45,980 views 11156 2692 ML prediction successful for Sugarcane at Indore
+INFO 2025-09-20 17:40:46,085 basehttp 11156 2692 "POST /api/recommend/ HTTP/1.1" 201 13391
+INFO 2025-09-20 17:40:48,601 basehttp 11156 17380 "GET /api/recommend/18/ HTTP/1.1" 200 13391
+INFO 2025-09-20 17:43:53,655 basehttp 11156 25556 "GET /api/status/ HTTP/1.1" 200 116
+INFO 2025-09-20 17:43:58,550 basehttp 11156 25556 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 17:43:58,786 ml_predict 11156 25556 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:43:58,796 ml_predict 11156 25556 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:43:58,798 views 11156 25556 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:43:58,836 basehttp 11156 25556 "POST /api/recommend/ HTTP/1.1" 201 13327
+INFO 2025-09-20 17:44:01,272 basehttp 11156 25556 "GET /api/recommend/history/ HTTP/1.1" 200 3954
+INFO 2025-09-20 17:45:24,955 autoreload 11156 22312 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:45:25,177 autoreload 728 16812 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:45:26,424 autoreload 5384 15756 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:45:26,535 autoreload 24840 20272 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-09-20 17:45:29,371 autoreload 23908 2468 Watching for file changes with StatReloader
+INFO 2025-09-20 17:45:29,445 autoreload 14112 24212 Watching for file changes with StatReloader
+INFO 2025-09-20 17:45:29,647 autoreload 20876 10984 Watching for file changes with StatReloader
+INFO 2025-09-20 17:45:30,541 autoreload 24664 25124 Watching for file changes with StatReloader
+INFO 2025-09-20 17:50:59,309 autoreload 20876 10984 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 17:50:59,578 autoreload 24664 25124 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 17:50:59,596 autoreload 14112 24212 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 17:50:59,873 autoreload 23908 2468 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 17:51:05,603 autoreload 17240 23712 Watching for file changes with StatReloader
+INFO 2025-09-20 17:51:05,779 autoreload 22856 10696 Watching for file changes with StatReloader
+INFO 2025-09-20 17:51:05,822 autoreload 14412 964 Watching for file changes with StatReloader
+INFO 2025-09-20 17:51:06,058 autoreload 22204 25532 Watching for file changes with StatReloader
+INFO 2025-09-20 17:52:52,244 basehttp 17240 7788 "GET /api/status/ HTTP/1.1" 200 116
+ERROR 2025-09-20 17:52:54,927 ml_predict 17240 6084 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:52:54,931 ml_predict 17240 6084 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:52:54,933 views 17240 6084 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:52:54,978 basehttp 17240 6084 "POST /api/recommend/ HTTP/1.1" 201 13585
+INFO 2025-09-20 17:52:55,063 basehttp 17240 25380 "GET /api/recommend/history/ HTTP/1.1" 200 4157
+ERROR 2025-09-20 17:53:20,926 ml_predict 17240 20792 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:53:20,930 ml_predict 17240 20792 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:53:20,932 views 17240 20792 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:53:20,968 basehttp 17240 20792 "POST /api/recommend/ HTTP/1.1" 201 13582
+ERROR 2025-09-20 17:53:21,115 ml_predict 17240 11612 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:53:21,118 ml_predict 17240 11612 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:53:21,124 views 17240 11612 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:53:21,179 basehttp 17240 11612 "POST /api/recommend/ HTTP/1.1" 201 12739
+ERROR 2025-09-20 17:53:21,348 ml_predict 17240 24408 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:53:21,352 ml_predict 17240 24408 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:53:21,357 views 17240 24408 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:53:21,407 basehttp 17240 24408 "POST /api/recommend/ HTTP/1.1" 201 12937
+ERROR 2025-09-20 17:53:33,979 ml_predict 17240 1944 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:53:33,982 ml_predict 17240 1944 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:53:33,982 views 17240 1944 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:53:34,028 basehttp 17240 1944 "POST /api/recommend/ HTTP/1.1" 201 12721
+INFO 2025-09-20 17:54:02,999 autoreload 14944 25236 Watching for file changes with StatReloader
+ERROR 2025-09-20 17:54:16,441 ml_predict 14944 9964 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:54:16,448 ml_predict 14944 9964 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:54:16,448 views 14944 9964 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:54:16,520 basehttp 14944 9964 "POST /api/recommend/ HTTP/1.1" 201 13706
+INFO 2025-09-20 17:54:31,620 autoreload 24072 916 Watching for file changes with StatReloader
+INFO 2025-09-20 17:57:11,966 autoreload 14944 25236 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-09-20 17:57:13,306 autoreload 23440 22084 Watching for file changes with StatReloader
+ERROR 2025-09-20 17:57:37,220 ml_predict 23440 24824 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:57:37,225 ml_predict 23440 24824 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:57:37,230 views 23440 24824 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:57:37,310 basehttp 23440 24824 "POST /api/recommend/ HTTP/1.1" 201 13576
+ERROR 2025-09-20 17:57:37,605 ml_predict 23440 10692 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:57:37,608 ml_predict 23440 10692 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:57:37,610 views 23440 10692 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:57:37,652 basehttp 23440 10692 "POST /api/recommend/ HTTP/1.1" 201 13042
+ERROR 2025-09-20 17:57:37,915 ml_predict 23440 25040 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:57:37,921 ml_predict 23440 25040 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 17:57:37,922 views 23440 25040 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 17:57:37,963 basehttp 23440 25040 "POST /api/recommend/ HTTP/1.1" 201 13712
+INFO 2025-09-20 17:58:16,220 basehttp 23440 14868 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 17:58:16,414 ml_predict 23440 14868 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.076&lon=72.8777&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 17:58:16,425 ml_predict 23440 14868 Prediction completed for Sugarcane at coordinates (19.076, 72.8777)
+INFO 2025-09-20 17:58:16,435 views 23440 14868 ML prediction successful for Sugarcane at Mumbai
+INFO 2025-09-20 17:58:16,475 basehttp 23440 14868 "POST /api/recommend/ HTTP/1.1" 201 13660
+INFO 2025-09-20 17:58:18,735 basehttp 23440 14868 "GET /api/recommend/29/ HTTP/1.1" 200 13660
+ERROR 2025-09-20 18:00:04,637 ml_predict 23440 24816 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=22.7196&lon=75.8577&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 18:00:04,637 ml_predict 23440 24816 Prediction completed for Sugarcane at coordinates (22.7196, 75.8577)
+INFO 2025-09-20 18:00:04,652 views 23440 24816 ML prediction successful for Sugarcane at Indore
+INFO 2025-09-20 18:00:04,691 basehttp 23440 24816 "POST /api/recommend/ HTTP/1.1" 201 13161
+INFO 2025-09-20 18:00:06,901 basehttp 23440 24816 "GET /api/recommend/30/ HTTP/1.1" 200 13161
+ERROR 2025-09-20 18:01:15,475 ml_predict 23440 23820 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=18.5204&lon=73.8567&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 18:01:15,481 ml_predict 23440 23820 Prediction completed for Sugarcane at coordinates (18.5204, 73.8567)
+INFO 2025-09-20 18:01:15,481 views 23440 23820 ML prediction successful for Sugarcane at Pune
+INFO 2025-09-20 18:01:15,532 basehttp 23440 23820 "POST /api/recommend/ HTTP/1.1" 201 13753
+INFO 2025-09-20 18:01:17,721 basehttp 23440 23820 "GET /api/recommend/31/ HTTP/1.1" 200 13753
+ERROR 2025-09-20 18:02:07,767 ml_predict 23440 5376 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=12.9716&lon=77.5946&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 18:02:07,773 ml_predict 23440 5376 Prediction completed for Tomato at coordinates (12.9716, 77.5946)
+INFO 2025-09-20 18:02:07,773 views 23440 5376 ML prediction successful for Tomato at Bangalore
+INFO 2025-09-20 18:02:07,793 basehttp 23440 5376 "POST /api/recommend/ HTTP/1.1" 201 13580
+INFO 2025-09-20 18:02:09,884 basehttp 23440 5376 "GET /api/recommend/32/ HTTP/1.1" 200 13580
+ERROR 2025-09-20 18:03:43,667 ml_predict 23440 11712 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 18:03:43,669 ml_predict 23440 11712 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 18:03:43,670 views 23440 11712 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 18:03:43,717 basehttp 23440 11712 "POST /api/recommend/ HTTP/1.1" 201 13624
+ERROR 2025-09-20 18:03:43,884 ml_predict 23440 8748 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 18:03:43,889 ml_predict 23440 8748 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 18:03:43,892 views 23440 8748 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 18:03:43,936 basehttp 23440 8748 "POST /api/recommend/ HTTP/1.1" 201 13105
+ERROR 2025-09-20 18:03:44,115 ml_predict 23440 19616 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 18:03:44,121 ml_predict 23440 19616 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-09-20 18:03:44,123 views 23440 19616 ML prediction successful for Rice at Delhi
+INFO 2025-09-20 18:03:44,177 basehttp 23440 19616 "POST /api/recommend/ HTTP/1.1" 201 13715
+ERROR 2025-09-20 18:11:15,156 ml_predict 23440 4840 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=22.5726&lon=88.3639&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 18:11:15,164 ml_predict 23440 4840 Prediction completed for Soybean at coordinates (22.5726, 88.3639)
+INFO 2025-09-20 18:11:15,164 views 23440 4840 ML prediction successful for Soybean at Kolkata
+INFO 2025-09-20 18:11:15,228 basehttp 23440 4840 "POST /api/recommend/ HTTP/1.1" 201 13656
+INFO 2025-09-20 18:11:17,383 basehttp 23440 4840 "GET /api/recommend/36/ HTTP/1.1" 200 13656
+ERROR 2025-09-20 18:12:54,504 ml_predict 23440 12996 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=23.0225&lon=72.5714&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 18:12:54,504 ml_predict 23440 12996 Prediction completed for Cotton at coordinates (23.0225, 72.5714)
+INFO 2025-09-20 18:12:54,504 views 23440 12996 ML prediction successful for Cotton at Ahmedabad
+INFO 2025-09-20 18:12:54,552 basehttp 23440 12996 "POST /api/recommend/ HTTP/1.1" 201 13712
+INFO 2025-09-20 18:12:56,657 basehttp 23440 12996 "GET /api/recommend/37/ HTTP/1.1" 200 13712
+INFO 2025-09-20 18:18:36,407 basehttp 23440 10492 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-20 18:18:36,666 ml_predict 23440 10492 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.076&lon=72.8777&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-20 18:18:36,666 ml_predict 23440 10492 Prediction completed for Wheat at coordinates (19.076, 72.8777)
+INFO 2025-09-20 18:18:36,666 views 23440 10492 ML prediction successful for Wheat at Mumbai
+INFO 2025-09-20 18:18:36,700 basehttp 23440 10492 "POST /api/recommend/ HTTP/1.1" 201 13623
+INFO 2025-09-20 18:18:38,795 basehttp 23440 10492 "GET /api/recommend/38/ HTTP/1.1" 200 13623
+INFO 2025-09-25 19:02:48,513 autoreload 11068 7920 Watching for file changes with StatReloader
+WARNING 2025-09-25 19:04:55,746 log 11068 24112 Not Found: /
+WARNING 2025-09-25 19:04:55,871 basehttp 11068 24112 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:04:56,441 log 11068 24112 Not Found: /favicon.ico
+WARNING 2025-09-25 19:04:56,458 basehttp 11068 24112 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:01,423 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:01,522 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:02,326 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:02,330 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:02,339 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:02,357 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:02,454 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:02,465 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:02,493 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:02,501 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:03,484 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:03,499 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:03,750 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:03,755 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:04,021 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:04,055 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:04,308 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:04,315 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:04,721 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:04,731 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:05,425 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:05,434 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:05,743 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:05,750 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:06,023 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:06,086 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:08,755 log 11068 10412 Not Found: /
+WARNING 2025-09-25 19:06:08,847 basehttp 11068 10412 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:09,844 log 11068 10552 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:09,872 log 11068 10412 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:09,874 basehttp 11068 10552 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:09,885 basehttp 11068 10412 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:09,910 log 11068 10412 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:09,922 basehttp 11068 10412 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:09,960 log 11068 10412 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:10,031 basehttp 11068 10412 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:17,421 log 11068 10412 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:17,432 basehttp 11068 10412 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:17,470 log 11068 10412 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:17,501 basehttp 11068 10412 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:17,571 log 11068 10412 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:17,661 basehttp 11068 10412 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:17,755 log 11068 21852 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:17,783 basehttp 11068 21852 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:17,863 log 11068 21852 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:17,891 basehttp 11068 21852 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:17,948 log 11068 21852 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:17,985 basehttp 11068 21852 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:18,036 log 11068 21852 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:18,047 basehttp 11068 21852 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:06:18,086 log 11068 21852 Not Found: /favicon.ico
+WARNING 2025-09-25 19:06:18,120 basehttp 11068 21852 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-09-25 19:09:09,602 autoreload 7916 8308 Watching for file changes with StatReloader
+WARNING 2025-09-25 19:10:52,794 log 7916 11484 Not Found: /
+WARNING 2025-09-25 19:10:52,836 basehttp 7916 11484 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:10:53,103 log 7916 11484 Not Found: /favicon.ico
+WARNING 2025-09-25 19:10:53,113 basehttp 7916 11484 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:11:30,747 log 7916 14292 Not Found: /
+WARNING 2025-09-25 19:11:30,751 basehttp 7916 14292 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:11:31,282 log 7916 14292 Not Found: /
+WARNING 2025-09-25 19:11:31,287 basehttp 7916 14292 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:11:31,470 log 7916 14292 Not Found: /
+WARNING 2025-09-25 19:11:31,479 basehttp 7916 14292 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:11:31,677 log 7916 14292 Not Found: /
+WARNING 2025-09-25 19:11:31,679 basehttp 7916 14292 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:11:33,122 log 7916 14292 Not Found: /favicon.ico
+WARNING 2025-09-25 19:11:33,127 basehttp 7916 14292 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-09-25 19:13:18,159 log 7916 9932 Not Found: /
+WARNING 2025-09-25 19:13:18,232 basehttp 7916 9932 "GET / HTTP/1.1" 404 179
+WARNING 2025-09-25 19:13:18,950 log 7916 8120 Not Found: /favicon.ico
+WARNING 2025-09-25 19:13:18,952 basehttp 7916 8120 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-09-25 19:17:35,031 autoreload 23452 7312 Watching for file changes with StatReloader
+INFO 2025-09-25 19:22:05,808 basehttp 7916 17056 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-25 19:22:21,883 ml_predict 7916 17056 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=26.4499&lon=80.3319&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-25 19:22:21,888 ml_predict 7916 17056 Prediction completed for Wheat at coordinates (26.4499, 80.3319)
+INFO 2025-09-25 19:22:21,888 views 7916 17056 ML prediction successful for Wheat at Kanpur
+INFO 2025-09-25 19:22:22,013 basehttp 7916 17056 "POST /api/recommend/ HTTP/1.1" 201 13112
+INFO 2025-09-25 19:22:24,391 basehttp 7916 17056 "GET /api/recommend/39/ HTTP/1.1" 200 13112
+INFO 2025-09-25 19:25:33,880 autoreload 22580 23828 Watching for file changes with StatReloader
+INFO 2025-09-25 19:31:57,610 basehttp 7916 17680 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-09-25 19:31:57,923 ml_predict 7916 17680 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=18.5204&lon=73.8567&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-25 19:31:57,933 ml_predict 7916 17680 Prediction completed for Wheat at coordinates (18.5204, 73.8567)
+INFO 2025-09-25 19:31:57,933 views 7916 17680 ML prediction successful for Wheat at Pune
+INFO 2025-09-25 19:31:58,058 basehttp 7916 17680 "POST /api/recommend/ HTTP/1.1" 201 13731
+INFO 2025-09-25 19:32:00,374 basehttp 7916 17680 "GET /api/recommend/40/ HTTP/1.1" 200 13731
+ERROR 2025-09-25 19:33:26,692 ml_predict 7916 3400 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=26.8467&lon=80.9462&appid=your_openweather_api_key_here&units=metric
+INFO 2025-09-25 19:33:26,705 ml_predict 7916 3400 Prediction completed for Maize at coordinates (26.8467, 80.9462)
+INFO 2025-09-25 19:33:26,705 views 7916 3400 ML prediction successful for Maize at Lucknow
+INFO 2025-09-25 19:33:26,761 basehttp 7916 3400 "POST /api/recommend/ HTTP/1.1" 201 13596
+INFO 2025-09-25 19:33:29,044 basehttp 7916 3400 "GET /api/recommend/41/ HTTP/1.1" 200 13596
+INFO 2025-10-11 15:58:42,171 autoreload 16404 11556 Watching for file changes with StatReloader
+WARNING 2025-10-11 15:59:21,110 log 16404 23988 Not Found: /
+WARNING 2025-10-11 15:59:21,112 basehttp 16404 23988 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-11 15:59:21,624 log 16404 23988 Not Found: /favicon.ico
+WARNING 2025-10-11 15:59:21,626 basehttp 16404 23988 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-10-11 16:00:29,466 log 16404 22480 Not Found: /
+WARNING 2025-10-11 16:00:29,466 basehttp 16404 22480 "GET / HTTP/1.1" 404 179
+INFO 2025-10-11 16:04:25,656 autoreload 22104 10916 Watching for file changes with StatReloader
+ERROR 2025-10-11 16:04:55,300 ml_predict 16404 23252 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:04:55,307 ml_predict 16404 23252 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-10-11 16:04:55,310 views 16404 23252 ML prediction successful for Rice at Delhi
+INFO 2025-10-11 16:04:55,458 basehttp 16404 23252 "POST /api/recommend/ HTTP/1.1" 201 13528
+ERROR 2025-10-11 16:04:55,745 ml_predict 16404 17076 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:04:55,752 ml_predict 16404 17076 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-10-11 16:04:55,754 views 16404 17076 ML prediction successful for Rice at Delhi
+INFO 2025-10-11 16:04:55,812 basehttp 16404 17076 "POST /api/recommend/ HTTP/1.1" 201 13021
+ERROR 2025-10-11 16:04:56,013 ml_predict 16404 2780 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:04:56,022 ml_predict 16404 2780 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-10-11 16:04:56,025 views 16404 2780 ML prediction successful for Rice at Delhi
+INFO 2025-10-11 16:04:56,062 basehttp 16404 2780 "POST /api/recommend/ HTTP/1.1" 201 13679
+INFO 2025-10-11 16:05:54,753 basehttp 16404 22988 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-10-11 16:05:54,903 ml_predict 16404 22988 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.076&lon=72.8777&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:05:54,903 ml_predict 16404 22988 Prediction completed for Wheat at coordinates (19.076, 72.8777)
+INFO 2025-10-11 16:05:54,910 views 16404 22988 ML prediction successful for Wheat at Mumbai
+INFO 2025-10-11 16:05:54,944 basehttp 16404 22988 "POST /api/recommend/ HTTP/1.1" 201 13049
+INFO 2025-10-11 16:05:57,103 basehttp 16404 21612 "GET /api/recommend/45/ HTTP/1.1" 200 13049
+INFO 2025-10-11 16:12:09,238 autoreload 22104 10916 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-11 16:12:09,536 autoreload 16404 11556 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-11 16:12:12,818 autoreload 14140 20092 Watching for file changes with StatReloader
+INFO 2025-10-11 16:12:12,818 autoreload 12032 21736 Watching for file changes with StatReloader
+INFO 2025-10-11 16:12:22,429 autoreload 14140 20092 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-11 16:12:22,437 autoreload 12032 21736 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-11 16:12:25,427 autoreload 24204 22592 Watching for file changes with StatReloader
+INFO 2025-10-11 16:12:25,435 autoreload 14636 21612 Watching for file changes with StatReloader
+INFO 2025-10-11 16:13:27,543 autoreload 12680 25544 Watching for file changes with StatReloader
+ERROR 2025-10-11 16:13:38,171 ml_predict 12680 23188 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:13:38,181 ml_predict 12680 23188 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-10-11 16:13:38,219 views 12680 23188 ML prediction successful for Rice at Delhi
+INFO 2025-10-11 16:13:38,304 basehttp 12680 23188 "POST /api/recommend/ HTTP/1.1" 201 14991
+ERROR 2025-10-11 16:13:49,128 ml_predict 12680 19284 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:13:49,129 ml_predict 12680 19284 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-10-11 16:13:49,129 views 12680 19284 ML prediction successful for Rice at Delhi
+INFO 2025-10-11 16:13:49,177 basehttp 12680 19284 "POST /api/recommend/ HTTP/1.1" 201 20304
+ERROR 2025-10-11 16:13:49,381 ml_predict 12680 6580 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:13:49,381 ml_predict 12680 6580 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-10-11 16:13:49,381 views 12680 6580 ML prediction successful for Rice at Delhi
+INFO 2025-10-11 16:13:49,431 basehttp 12680 6580 "POST /api/recommend/ HTTP/1.1" 201 19002
+ERROR 2025-10-11 16:13:49,593 ml_predict 12680 12648 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:13:49,600 ml_predict 12680 12648 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-10-11 16:13:49,603 views 12680 12648 ML prediction successful for Rice at Delhi
+INFO 2025-10-11 16:13:49,660 basehttp 12680 12648 "POST /api/recommend/ HTTP/1.1" 201 15051
+ERROR 2025-10-11 16:14:06,618 ml_predict 12680 22916 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:14:06,619 ml_predict 12680 22916 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-10-11 16:14:06,619 views 12680 22916 ML prediction successful for Rice at Delhi
+INFO 2025-10-11 16:14:06,665 basehttp 12680 22916 "POST /api/recommend/ HTTP/1.1" 201 20283
+INFO 2025-10-11 16:14:24,958 autoreload 12680 25544 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-11 16:14:26,659 autoreload 808 12280 Watching for file changes with StatReloader
+ERROR 2025-10-11 16:14:45,252 ml_predict 808 24736 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=22.7196&lon=75.8577&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:14:45,252 ml_predict 808 24736 Prediction completed for Wheat at coordinates (22.7196, 75.8577)
+INFO 2025-10-11 16:14:45,252 views 808 24736 ML prediction successful for Wheat at Indore
+INFO 2025-10-11 16:14:45,332 basehttp 808 24736 "POST /api/recommend/ HTTP/1.1" 201 19022
+INFO 2025-10-11 16:14:47,719 basehttp 808 24736 "GET /api/recommend/51/ HTTP/1.1" 200 19022
+ERROR 2025-10-11 16:18:54,955 ml_predict 808 24792 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=12.9716&lon=77.5946&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:18:54,964 ml_predict 808 24792 Prediction completed for Wheat at coordinates (12.9716, 77.5946)
+INFO 2025-10-11 16:18:54,964 views 808 24792 ML prediction successful for Wheat at Bangalore
+INFO 2025-10-11 16:18:54,990 basehttp 808 24792 "POST /api/recommend/ HTTP/1.1" 201 20359
+INFO 2025-10-11 16:18:57,097 basehttp 808 24792 "GET /api/recommend/52/ HTTP/1.1" 200 20359
+ERROR 2025-10-11 16:26:31,031 ml_predict 808 17256 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=17.6868&lon=83.2185&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:26:31,038 ml_predict 808 17256 Prediction completed for Sugarcane at coordinates (17.6868, 83.2185)
+INFO 2025-10-11 16:26:31,038 views 808 17256 ML prediction successful for Sugarcane at Visakhapatnam
+INFO 2025-10-11 16:26:31,073 basehttp 808 17256 "POST /api/recommend/ HTTP/1.1" 201 15119
+INFO 2025-10-11 16:26:33,199 basehttp 808 17256 "GET /api/recommend/53/ HTTP/1.1" 200 15119
+ERROR 2025-10-11 16:29:05,244 ml_predict 808 8964 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=26.9124&lon=75.7873&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:29:05,253 ml_predict 808 8964 Prediction completed for Cotton at coordinates (26.9124, 75.7873)
+INFO 2025-10-11 16:29:05,253 views 808 8964 ML prediction successful for Cotton at Jaipur
+INFO 2025-10-11 16:29:05,282 basehttp 808 8964 "POST /api/recommend/ HTTP/1.1" 201 15074
+INFO 2025-10-11 16:29:07,419 basehttp 808 8964 "GET /api/recommend/54/ HTTP/1.1" 200 15074
+ERROR 2025-10-11 16:33:06,821 ml_predict 808 15096 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:33:06,829 ml_predict 808 15096 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-10-11 16:33:06,829 views 808 15096 ML prediction successful for Rice at Delhi
+INFO 2025-10-11 16:33:06,880 basehttp 808 15096 "POST /api/recommend/ HTTP/1.1" 201 20271
+ERROR 2025-10-11 16:33:53,025 ml_predict 808 10012 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=22.7196&lon=75.8577&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:33:53,039 ml_predict 808 10012 Prediction completed for Soybean at coordinates (22.7196, 75.8577)
+INFO 2025-10-11 16:33:53,044 views 808 10012 ML prediction successful for Soybean at Indore
+INFO 2025-10-11 16:33:53,114 basehttp 808 10012 "POST /api/recommend/ HTTP/1.1" 201 19022
+INFO 2025-10-11 16:33:56,212 basehttp 808 10012 "GET /api/recommend/56/ HTTP/1.1" 200 19022
+ERROR 2025-10-11 16:37:32,871 ml_predict 808 5032 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=28.6139&lon=77.209&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:37:32,873 ml_predict 808 5032 Prediction completed for Rice at coordinates (28.6139, 77.209)
+INFO 2025-10-11 16:37:32,873 views 808 5032 ML prediction successful for Rice at Delhi
+INFO 2025-10-11 16:37:32,949 basehttp 808 5032 "POST /api/recommend/ HTTP/1.1" 201 20259
+ERROR 2025-10-11 16:38:05,417 ml_predict 808 14988 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=25.5941&lon=85.1376&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:38:05,417 ml_predict 808 14988 Prediction completed for Sugarcane at coordinates (25.5941, 85.1376)
+INFO 2025-10-11 16:38:05,417 views 808 14988 ML prediction successful for Sugarcane at Patna
+INFO 2025-10-11 16:38:05,459 basehttp 808 14988 "POST /api/recommend/ HTTP/1.1" 201 19053
+INFO 2025-10-11 16:38:07,707 basehttp 808 14988 "GET /api/recommend/58/ HTTP/1.1" 200 19053
+INFO 2025-10-11 16:41:41,025 basehttp 808 14988 "GET /api/recommend/58/ HTTP/1.1" 200 19053
+ERROR 2025-10-11 16:43:45,918 ml_predict 808 22188 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=21.1458&lon=79.0882&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-11 16:43:45,918 ml_predict 808 22188 Prediction completed for Maize at coordinates (21.1458, 79.0882)
+INFO 2025-10-11 16:43:45,918 views 808 22188 ML prediction successful for Maize at Nagpur
+INFO 2025-10-11 16:43:45,950 basehttp 808 22188 "POST /api/recommend/ HTTP/1.1" 201 20289
+INFO 2025-10-11 16:43:48,189 basehttp 808 22188 "GET /api/recommend/59/ HTTP/1.1" 200 20289
+INFO 2025-10-11 16:45:57,041 basehttp 808 21376 "GET /api/recommend/59/ HTTP/1.1" 200 20289
+INFO 2025-10-11 17:12:49,697 autoreload 23024 6640 Watching for file changes with StatReloader
+WARNING 2025-10-11 17:13:00,200 log 808 19568 Not Found: /
+WARNING 2025-10-11 17:13:00,228 basehttp 808 19568 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-11 17:13:00,398 log 808 19568 Not Found: /favicon.ico
+WARNING 2025-10-11 17:13:00,400 basehttp 808 19568 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-10-11 17:17:26,150 autoreload 15372 23620 Watching for file changes with StatReloader
+INFO 2025-10-14 00:23:59,920 autoreload 22016 23004 Watching for file changes with StatReloader
+INFO 2025-10-14 00:26:28,575 basehttp 22016 12840 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-10-14 00:26:31,599 ml_predict 22016 12840 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=26.4499&lon=80.3319&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-14 00:26:31,599 ml_predict 22016 12840 Prediction completed for Chili at coordinates (26.4499, 80.3319)
+INFO 2025-10-14 00:26:31,599 views 22016 12840 ML prediction successful for Chili at Kanpur
+INFO 2025-10-14 00:26:31,641 basehttp 22016 12840 "POST /api/recommend/ HTTP/1.1" 201 18993
+INFO 2025-10-14 00:26:33,899 basehttp 22016 9956 "GET /api/recommend/60/ HTTP/1.1" 200 18993
+INFO 2025-10-16 21:44:15,562 autoreload 21380 18600 Watching for file changes with StatReloader
+INFO 2025-10-16 22:16:51,379 basehttp 21380 20940 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-10-16 22:16:57,186 ml_predict 21380 20940 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=22.7196&lon=75.8577&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-16 22:16:57,192 ml_predict 21380 20940 Prediction completed for Wheat at coordinates (22.7196, 75.8577)
+INFO 2025-10-16 22:16:57,192 views 21380 20940 ML prediction successful for Wheat at Indore
+INFO 2025-10-16 22:16:57,280 basehttp 21380 20940 "POST /api/recommend/ HTTP/1.1" 201 19009
+INFO 2025-10-16 22:17:00,383 basehttp 21380 20940 "GET /api/recommend/61/ HTTP/1.1" 200 19009
+ERROR 2025-10-16 22:25:10,179 ml_predict 21380 13424 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=22.7196&lon=75.8577&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-16 22:25:10,179 ml_predict 21380 13424 Prediction completed for Wheat at coordinates (22.7196, 75.8577)
+INFO 2025-10-16 22:25:10,179 views 21380 13424 ML prediction successful for Wheat at Indore
+INFO 2025-10-16 22:25:10,210 basehttp 21380 13424 "POST /api/recommend/ HTTP/1.1" 201 18981
+INFO 2025-10-16 22:25:12,353 basehttp 21380 13424 "GET /api/recommend/62/ HTTP/1.1" 200 18981
+INFO 2025-10-20 22:40:32,226 autoreload 15704 18556 Watching for file changes with StatReloader
+WARNING 2025-10-20 22:41:01,366 log 15704 23168 Not Found: /
+WARNING 2025-10-20 22:41:01,366 basehttp 15704 23168 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-20 22:41:01,839 log 15704 23168 Not Found: /favicon.ico
+WARNING 2025-10-20 22:41:01,841 basehttp 15704 23168 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-10-20 22:42:40,823 log 15704 26444 Not Found: /
+WARNING 2025-10-20 22:42:40,825 basehttp 15704 26444 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-20 22:42:59,994 log 15704 23160 Not Found: /
+WARNING 2025-10-20 22:42:59,996 basehttp 15704 23160 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-20 22:43:02,184 log 15704 23160 Not Found: /
+WARNING 2025-10-20 22:43:02,184 basehttp 15704 23160 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-20 22:43:03,192 log 15704 23160 Not Found: /
+WARNING 2025-10-20 22:43:03,194 basehttp 15704 23160 "GET / HTTP/1.1" 404 179
+INFO 2025-10-20 22:44:28,502 autoreload 19448 4964 Watching for file changes with StatReloader
+WARNING 2025-10-20 22:44:56,428 log 19448 25088 Not Found: /
+WARNING 2025-10-20 22:44:56,428 basehttp 19448 25088 "GET / HTTP/1.1" 404 179
+INFO 2025-10-20 23:07:53,770 autoreload 16292 16352 Watching for file changes with StatReloader
+INFO 2025-10-20 23:09:15,062 basehttp 16292 6256 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-10-20 23:09:20,912 ml_predict 16292 6256 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=22.7196&lon=75.8577&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-20 23:09:20,915 ml_predict 16292 6256 Prediction completed for Soybean at coordinates (22.7196, 75.8577)
+INFO 2025-10-20 23:09:20,915 views 16292 6256 ML prediction successful for Soybean at Indore
+INFO 2025-10-20 23:09:21,007 basehttp 16292 6256 "POST /api/recommend/ HTTP/1.1" 201 18982
+INFO 2025-10-20 23:09:23,241 basehttp 16292 6256 "GET /api/recommend/63/ HTTP/1.1" 200 18982
+INFO 2025-10-21 22:12:15,202 autoreload 21776 22572 Watching for file changes with StatReloader
+INFO 2025-10-21 22:14:16,113 basehttp 21776 16064 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-10-21 22:14:19,306 ml_predict 21776 16064 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=21.1458&lon=79.0882&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-21 22:14:19,311 ml_predict 21776 16064 Prediction completed for Maize at coordinates (21.1458, 79.0882)
+INFO 2025-10-21 22:14:19,311 views 21776 16064 ML prediction successful for Maize at Nagpur
+INFO 2025-10-21 22:14:19,493 basehttp 21776 16064 "POST /api/recommend/ HTTP/1.1" 201 17193
+INFO 2025-10-21 22:14:21,684 basehttp 21776 16064 "GET /api/recommend/64/ HTTP/1.1" 200 17193
+INFO 2025-10-21 22:19:54,740 autoreload 21776 22572 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-21 22:20:01,758 autoreload 20424 5404 Watching for file changes with StatReloader
+INFO 2025-10-21 22:20:41,729 autoreload 20424 5404 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-21 22:20:45,215 autoreload 3284 8656 Watching for file changes with StatReloader
+INFO 2025-10-21 22:21:52,197 autoreload 3284 8656 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-21 22:21:55,028 autoreload 16788 9460 Watching for file changes with StatReloader
+INFO 2025-10-21 22:23:32,657 basehttp 16788 2668 "GET /api/recommend/64/ HTTP/1.1" 200 17193
+WARNING 2025-10-21 22:23:54,643 log 16788 10268 Not Found: /
+WARNING 2025-10-21 22:23:54,643 basehttp 16788 10268 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-21 22:23:55,216 log 16788 10268 Not Found: /favicon.ico
+WARNING 2025-10-21 22:23:55,226 basehttp 16788 10268 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-10-21 22:24:30,756 autoreload 13252 12480 Watching for file changes with StatReloader
+INFO 2025-10-21 22:25:02,747 autoreload 2728 22064 Watching for file changes with StatReloader
+WARNING 2025-10-21 22:25:50,782 log 13252 13572 Not Found: /
+WARNING 2025-10-21 22:25:50,784 basehttp 13252 13572 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-21 22:25:51,089 log 13252 13572 Not Found: /favicon.ico
+WARNING 2025-10-21 22:25:51,090 basehttp 13252 13572 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-10-21 22:25:53,418 log 13252 13572 Not Found: /
+WARNING 2025-10-21 22:25:53,418 basehttp 13252 13572 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-21 22:26:01,648 log 13252 14644 Not Found: /
+WARNING 2025-10-21 22:26:01,714 basehttp 13252 14644 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-21 22:26:01,867 log 13252 14644 Not Found: /favicon.ico
+WARNING 2025-10-21 22:26:01,887 basehttp 13252 14644 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-10-21 22:26:07,642 basehttp 13252 22032 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-10-21 22:26:08,447 basehttp 13252 22032 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4272
+INFO 2025-10-21 22:26:08,522 basehttp 13252 22032 "GET /static/admin/css/base.64976e0f7339.css HTTP/1.1" 200 4847
+INFO 2025-10-21 22:26:08,532 basehttp 13252 14312 "GET /static/admin/css/dark_mode.ef27a31af300.css HTTP/1.1" 200 849
+INFO 2025-10-21 22:26:08,674 basehttp 13252 14312 "GET /static/admin/css/login.586129c60a93.css HTTP/1.1" 200 417
+INFO 2025-10-21 22:26:08,681 basehttp 13252 22032 "GET /static/admin/css/nav_sidebar.269a1bd44627.css HTTP/1.1" 200 779
+INFO 2025-10-21 22:26:08,715 basehttp 13252 14312 "GET /static/admin/css/responsive.107cd2690311.css HTTP/1.1" 200 3432
+INFO 2025-10-21 22:26:08,715 basehttp 13252 22032 "GET /static/admin/js/theme.ab270f56bb9c.js HTTP/1.1" 200 605
+INFO 2025-10-21 22:26:08,749 basehttp 13252 14312 "GET /static/admin/js/nav_sidebar.3b9190d420b1.js HTTP/1.1" 200 845
+WARNING 2025-10-21 22:26:08,857 log 13252 14312 Not Found: /favicon.ico
+WARNING 2025-10-21 22:26:08,857 basehttp 13252 14312 "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-10-21 22:26:21,731 log 13252 20568 Not Found: /
+WARNING 2025-10-21 22:26:21,733 basehttp 13252 20568 "GET / HTTP/1.1" 404 179
+WARNING 2025-10-21 22:26:22,052 log 13252 20568 Not Found: /favicon.ico
+WARNING 2025-10-21 22:26:22,054 basehttp 13252 20568 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-10-21 22:26:59,535 autoreload 13252 12480 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\urls.py changed, reloading.
+INFO 2025-10-21 22:26:59,554 autoreload 2728 22064 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\urls.py changed, reloading.
+INFO 2025-10-21 22:27:05,523 autoreload 14104 20472 Watching for file changes with StatReloader
+INFO 2025-10-21 22:27:05,523 autoreload 14148 5108 Watching for file changes with StatReloader
+INFO 2025-10-21 22:27:23,640 autoreload 14104 20472 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\urls.py changed, reloading.
+INFO 2025-10-21 22:27:23,885 autoreload 14148 5108 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\urls.py changed, reloading.
+INFO 2025-10-21 22:27:28,195 autoreload 22840 13204 Watching for file changes with StatReloader
+INFO 2025-10-21 22:27:28,460 autoreload 7132 6060 Watching for file changes with StatReloader
+INFO 2025-10-21 22:27:54,772 autoreload 11088 6596 Watching for file changes with StatReloader
+INFO 2025-10-21 22:28:04,805 autoreload 14844 13620 Watching for file changes with StatReloader
+INFO 2025-10-21 22:39:22,646 autoreload 24320 26556 Watching for file changes with StatReloader
+INFO 2025-10-21 22:41:29,646 autoreload 11088 6596 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\settings.py changed, reloading.
+INFO 2025-10-21 22:41:29,865 autoreload 24320 26556 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\urls.py changed, reloading.
+INFO 2025-10-21 22:41:29,834 autoreload 14844 13620 C:\Users\roshi\crop_recommendation_backend\crop_recommendation\urls.py changed, reloading.
+INFO 2025-10-21 22:41:33,064 autoreload 25376 2880 Watching for file changes with StatReloader
+INFO 2025-10-21 22:41:34,155 autoreload 11044 16436 Watching for file changes with StatReloader
+INFO 2025-10-21 22:41:34,238 autoreload 25380 1752 Watching for file changes with StatReloader
+INFO 2025-10-21 22:43:21,902 basehttp 25380 14160 "GET / HTTP/1.1" 200 4781
+WARNING 2025-10-21 22:43:22,308 log 25380 14160 Not Found: /favicon.ico
+WARNING 2025-10-21 22:43:22,310 basehttp 25380 14160 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-10-21 22:43:45,505 basehttp 25380 26240 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-10-21 22:43:45,842 basehttp 25380 26240 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4272
+INFO 2025-10-21 22:43:45,913 basehttp 25380 22432 "GET /static/admin/css/dark_mode.ef27a31af300.css HTTP/1.1" 200 849
+INFO 2025-10-21 22:43:45,913 basehttp 25380 24452 "GET /static/admin/css/nav_sidebar.269a1bd44627.css HTTP/1.1" 200 779
+INFO 2025-10-21 22:43:45,913 basehttp 25380 26240 "GET /static/admin/css/base.64976e0f7339.css HTTP/1.1" 200 4847
+INFO 2025-10-21 22:43:45,930 basehttp 25380 22432 "GET /static/admin/css/login.586129c60a93.css HTTP/1.1" 200 417
+INFO 2025-10-21 22:43:45,930 basehttp 25380 26240 "GET /static/admin/js/theme.ab270f56bb9c.js HTTP/1.1" 200 605
+INFO 2025-10-21 22:43:45,930 basehttp 25380 24452 "GET /static/admin/css/responsive.107cd2690311.css HTTP/1.1" 200 3432
+INFO 2025-10-21 22:43:45,937 basehttp 25380 26240 "GET /static/admin/js/nav_sidebar.3b9190d420b1.js HTTP/1.1" 200 845
+INFO 2025-10-21 22:43:51,176 basehttp 25380 8656 "GET /api/status/ HTTP/1.1" 200 115
+INFO 2025-10-21 22:45:04,406 autoreload 25376 2880 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-21 22:45:04,980 autoreload 25380 1752 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-21 22:45:05,081 autoreload 11044 16436 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-21 22:45:11,251 autoreload 20176 22652 Watching for file changes with StatReloader
+INFO 2025-10-21 22:45:11,395 autoreload 25316 26216 Watching for file changes with StatReloader
+INFO 2025-10-21 22:45:11,571 autoreload 25164 24304 Watching for file changes with StatReloader
+INFO 2025-10-21 22:45:36,346 autoreload 25316 26216 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-21 22:45:36,417 autoreload 25164 24304 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-21 22:45:36,657 autoreload 20176 22652 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-21 22:45:43,709 autoreload 25980 3092 Watching for file changes with StatReloader
+INFO 2025-10-21 22:45:43,746 autoreload 24512 26156 Watching for file changes with StatReloader
+INFO 2025-10-21 22:45:43,920 autoreload 23576 23572 Watching for file changes with StatReloader
+INFO 2025-10-21 22:47:55,616 autoreload 24756 20256 Watching for file changes with StatReloader
+INFO 2025-10-21 22:48:32,389 autoreload 24756 20256 C:\Users\roshi\crop_recommendation_backend\recommendations\ml_predict.py changed, reloading.
+INFO 2025-10-21 22:48:36,070 autoreload 16332 26040 Watching for file changes with StatReloader
+INFO 2025-10-21 22:50:55,666 autoreload 25436 2728 Watching for file changes with StatReloader
+ERROR 2025-10-21 22:56:48,221 ml_predict 16332 14180 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.076&lon=72.8777&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-21 22:56:48,229 ml_predict 16332 14180 Prediction completed for Maize at coordinates (19.076, 72.8777)
+INFO 2025-10-21 22:56:48,229 views 16332 14180 ML prediction successful for Maize at Mumbai
+INFO 2025-10-21 22:56:48,302 basehttp 16332 14180 "POST /api/recommend/ HTTP/1.1" 201 20283
+INFO 2025-10-21 22:56:50,579 basehttp 16332 15920 "GET /api/recommend/65/ HTTP/1.1" 200 20283
+INFO 2025-10-21 23:20:05,025 autoreload 15912 21240 Watching for file changes with StatReloader
+INFO 2025-10-21 23:21:17,661 basehttp 15912 26100 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-10-21 23:21:18,528 ml_predict 15912 26100 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=17.385&lon=78.4867&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-21 23:21:18,528 ml_predict 15912 26100 Prediction completed for Wheat at coordinates (17.385, 78.4867)
+INFO 2025-10-21 23:21:18,528 views 15912 26100 ML prediction successful for Wheat at Hyderabad
+INFO 2025-10-21 23:21:18,559 basehttp 15912 26100 "POST /api/recommend/ HTTP/1.1" 201 20301
+INFO 2025-10-21 23:21:20,716 basehttp 15912 26100 "GET /api/recommend/66/ HTTP/1.1" 200 20301
+INFO 2025-10-29 10:10:23,350 autoreload 17756 17760 Watching for file changes with StatReloader
+INFO 2025-10-29 10:12:15,928 basehttp 17756 22448 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-10-29 10:12:24,006 ml_predict 17756 22448 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=19.2183&lon=72.9781&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-29 10:12:24,014 ml_predict 17756 22448 Prediction completed for Soybean at coordinates (19.2183, 72.9781)
+INFO 2025-10-29 10:12:24,015 views 17756 22448 ML prediction successful for Soybean at Thane
+INFO 2025-10-29 10:12:24,111 basehttp 17756 22448 "POST /api/recommend/ HTTP/1.1" 201 19023
+INFO 2025-10-29 10:12:26,496 basehttp 17756 7880 "GET /api/recommend/67/ HTTP/1.1" 200 19023
+INFO 2025-10-29 10:14:53,796 autoreload 14008 6456 Watching for file changes with StatReloader
+INFO 2025-10-29 10:16:03,378 basehttp 14008 18988 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-10-29 10:16:04,458 ml_predict 14008 18988 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=22.5726&lon=88.3639&appid=your_openweather_api_key_here&units=metric
+INFO 2025-10-29 10:16:04,458 ml_predict 14008 18988 Prediction completed for Rice at coordinates (22.5726, 88.3639)
+INFO 2025-10-29 10:16:04,458 views 14008 18988 ML prediction successful for Rice at Kolkata
+INFO 2025-10-29 10:16:04,484 basehttp 14008 18988 "POST /api/recommend/ HTTP/1.1" 201 18983
+INFO 2025-10-29 10:16:06,733 basehttp 14008 18988 "GET /api/recommend/68/ HTTP/1.1" 200 18983
+INFO 2025-11-03 22:10:27,605 autoreload 6776 21116 Watching for file changes with StatReloader
+INFO 2025-11-03 22:12:05,409 basehttp 6776 11196 "OPTIONS /api/recommend/ HTTP/1.1" 200 0
+ERROR 2025-11-03 22:12:09,875 ml_predict 6776 11196 Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/forecast?lat=26.8467&lon=80.9462&appid=your_openweather_api_key_here&units=metric
+INFO 2025-11-03 22:12:09,879 ml_predict 6776 11196 Prediction completed for Maize at coordinates (26.8467, 80.9462)
+INFO 2025-11-03 22:12:09,879 views 6776 11196 ML prediction successful for Maize at Lucknow
+INFO 2025-11-03 22:12:09,954 basehttp 6776 11196 "POST /api/recommend/ HTTP/1.1" 201 18996
+INFO 2025-11-03 22:12:12,165 basehttp 6776 11196 "GET /api/recommend/69/ HTTP/1.1" 200 18996

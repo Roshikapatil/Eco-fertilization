@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Crop Recommendation System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 800px;
+        }
+        
+        .form-section {
+            padding: 30px;
+            background: #f8f9fa;
+            overflow-y: auto;
+        }
+        
+        .map-section {
+            padding: 30px;
+            background: #e9ecef;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1em;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #4a7c59;
+            box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+        }
+        
+        .location-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .location-inputs input {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            color: #6c757d;
+            cursor: not-allowed;
+            font-size: 12px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #4a7c59 0%, #2c5530 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(74, 124, 89, 0.3);
+        }
+        
+        .btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        
+        .error {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+        
+        .loading {
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            border: 2px solid #17a2b8;
+            color: #0c5460;
+        }
+        
+        .result h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .result p {
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .result strong {
+            color: #2c5530;
+        }
+        
+        .location-info {
+            background: #e3f2fd;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .location-info p {
+            margin: 3px 0;
+            color: #1565c0;
+            font-size: 0.9em;
+        }
+        
+        .district-selector {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .district-selector select {
+            background: white;
+            border: 2px solid #ffc107;
+        }
+        
+        .weather-forecast {
+            background: #d1ecf1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .weather-forecast h4 {
+            color: #0c5460;
+            margin-bottom: 10px;
+        }
+        
+        .weather-day {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #bee5eb;
+        }
+        
+        .weather-day:last-child {
+            border-bottom: none;
+        }
+        
+        .nutrient-report {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .nutrient-report h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        
+        .nutrient-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+        
+        .nutrient-bar {
+            width: 100px;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .nutrient-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .nutrient-n { background: #007bff; }
+        .nutrient-p { background: #28a745; }
+        .nutrient-k { background: #ffc107; }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(45deg, #e3f2fd 25%, transparent 25%), 
+                        linear-gradient(-45deg, #e3f2fd 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #e3f2fd 75%), 
+                        linear-gradient(-45deg, transparent 75%, #e3f2fd 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2em;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .map-placeholder:hover {
+            background: linear-gradient(45deg, #4CAF50 25%, transparent 25%), 
+                        linear-gradient(-45deg, #4CAF50 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #4CAF50 75%), 
+                        linear-gradient(-45deg, transparent 75%, #4CAF50 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            color: white;
+        }
+        
+        .api-links {
+            margin-top: 30px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .api-links h3 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        .api-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .api-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-section {
+                order: -1;
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌱 Enhanced Crop Recommendation System</h1>
+            <p>AI-powered recommendations with 7-day weather forecast, nutrient analysis, and easy location selection</p>
+        </div>
+        
+        <div class="content">
+            <div class="form-section">
+                <form id="recommendationForm">
+                    <div class="form-group">
+                        <label for="crop">🌾 Crop Type:</label>
+                        <select id="crop" required>
+                            <option value="">Select a crop</option>
+                            <option value="Rice">Rice</option>
+                            <option value="Wheat">Wheat</option>
+                            <option value="Maize">Maize</option>
+                            <option value="Sugarcane">Sugarcane</option>
+                            <option value="Cotton">Cotton</option>
+                            <option value="Soybean">Soybean</option>
+                            <option value="Potato">Potato</option>
+                            <option value="Tomato">Tomato</option>
+                            <option value="Onion">Onion</option>
+                            <option value="Chili">Chili</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="season">🌤️ Season:</label>
+                        <select id="season" required>
+                            <option value="">Select a season</option>
+                            <option value="Kharif">Kharif (Monsoon)</option>
+                            <option value="Rabi">Rabi (Winter)</option>
+                            <option value="Zaid">Zaid (Summer)</option>
+                            <option value="Monsoon">Monsoon</option>
+                            <option value="Winter">Winter</option>
+                            <option value="Summer">Summer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="soil">🌍 Soil Type:</label>
+                        <select id="soil" required>
+                            <option value="">Select soil type</option>
+                            <option value="Clay">Clay</option>
+                            <option value="Sandy">Sandy</option>
+                            <option value="Loamy">Loamy</option>
+                            <option value="Silty">Silty</option>
+                            <option value="Peaty">Peaty</option>
+                            <option value="Chalky">Chalky</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="preference">🌿 Farming Preference:</label>
+                        <select id="preference" required>
+                            <option value="">Select preference</option>
+                            <option value="Organic">Organic</option>
+                            <option value="Inorganic">Inorganic</option>
+                            <option value="Mixed">Mixed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="district-selector">
+                        <label for="district">🏛️ District (Quick Selection):</label>
+                        <select id="district">
+                            <option value="">Select a district</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="kolkata">Kolkata</option>
+                            <option value="chennai">Chennai</option>
+                            <option value="hyderabad">Hyderabad</option>
+                            <option value="pune">Pune</option>
+                            <option value="ahmedabad">Ahmedabad</option>
+                            <option value="jaipur">Jaipur</option>
+                            <option value="lucknow">Lucknow</option>
+                            <option value="kanpur">Kanpur</option>
+                            <option value="nagpur">Nagpur</option>
+                            <option value="indore">Indore</option>
+                            <option value="thane">Thane</option>
+                            <option value="bhopal">Bhopal</option>
+                            <option value="visakhapatnam">Visakhapatnam</option>
+                            <option value="pimpri">Pimpri-Chinchwad</option>
+                            <option value="patna">Patna</option>
+                            <option value="vadodara">Vadodara</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">📍 Location Name:</label>
+                        <input type="text" id="location" placeholder="e.g., Delhi, Mumbai, Bangalore" required>
+                    </div>
+                    
+                    <div class="location-info">
+                        <p><strong>📍 Selected Location:</strong> <span id="currentLocation">Select a district or enter location</span></p>
+                        <p><strong>🌐 Coordinates:</strong> <span id="coordinates">Not selected</span></p>
+                    </div>
+                    
+                    <div class="location-inputs">
+                        <div class="form-group">
+                            <label for="latitude">Latitude:</label>
+                            <input type="number" id="latitude" step="any" placeholder="Auto-filled" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="longitude">Longitude:</label>
+                            <input type="number" id="longitude" step="any" placeholder="Auto-filled" readonly>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="submitBtn">
+                        🚀 Get Full Recommendation Report
+                    </button>
+                </form>
+                
+                <div id="result" class="result"></div>
+                
+                <div class="api-links">
+                    <h3>🔗 Quick Links:</h3>
+                    <a href="http://127.0.0.1:8000/api/status/" target="_blank">API Status</a>
+                    <a href="http://127.0.0.1:8000/api/recommend/history/" target="_blank">History</a>
+                    <a href="http://127.0.0.1:8000/admin/" target="_blank">Admin</a>
+                </div>
+            </div>
+            
+            <div class="map-section">
+                <div class="map-placeholder" onclick="simulateMapClick()">
+                    <div>
+                        <h3>🗺️ Interactive Location Selector</h3>
+                        <p>Click here to simulate map selection</p>
+                        <p><em>Or use the district selector above</em></p>
+                        <br>
+                        <p><strong>Features:</strong></p>
+                        <p>✅ 7-Day Weather Forecast</p>
+                        <p>✅ Nutrient Analysis Report</p>
+                        <p>✅ District-based Location Selection</p>
+                        <p>✅ AI-Powered Recommendations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Indian districts with coordinates
+        const indianDistricts = {
+            'delhi': { lat: 28.6139, lon: 77.2090, name: 'Delhi' },
+            'mumbai': { lat: 19.0760, lon: 72.8777, name: 'Mumbai' },
+            'bangalore': { lat: 12.9716, lon: 77.5946, name: 'Bangalore' },
+            'kolkata': { lat: 22.5726, lon: 88.3639, name: 'Kolkata' },
+            'chennai': { lat: 13.0827, lon: 80.2707, name: 'Chennai' },
+            'hyderabad': { lat: 17.3850, lon: 78.4867, name: 'Hyderabad' },
+            'pune': { lat: 18.5204, lon: 73.8567, name: 'Pune' },
+            'ahmedabad': { lat: 23.0225, lon: 72.5714, name: 'Ahmedabad' },
+            'jaipur': { lat: 26.9124, lon: 75.7873, name: 'Jaipur' },
+            'lucknow': { lat: 26.8467, lon: 80.9462, name: 'Lucknow' },
+            'kanpur': { lat: 26.4499, lon: 80.3319, name: 'Kanpur' },
+            'nagpur': { lat: 21.1458, lon: 79.0882, name: 'Nagpur' },
+            'indore': { lat: 22.7196, lon: 75.8577, name: 'Indore' },
+            'thane': { lat: 19.2183, lon: 72.9781, name: 'Thane' },
+            'bhopal': { lat: 23.2599, lon: 77.4126, name: 'Bhopal' },
+            'visakhapatnam': { lat: 17.6868, lon: 83.2185, name: 'Visakhapatnam' },
+            'pimpri': { lat: 18.6298, lon: 73.7997, name: 'Pimpri-Chinchwad' },
+            'patna': { lat: 25.5941, lon: 85.1376, name: 'Patna' },
+            'vadodara': { lat: 22.3072, lon: 73.1812, name: 'Vadodara' }
+        };
+        
+        // District selection handler
+        document.getElementById('district').addEventListener('change', function() {
+            const district = this.value;
+            if (district && indianDistricts[district]) {
+                const coords = indianDistricts[district];
+                document.getElementById('latitude').value = coords.lat;
+                document.getElementById('longitude').value = coords.lon;
+                document.getElementById('coordinates').textContent = `${coords.lat}, ${coords.lon}`;
+                document.getElementById('currentLocation').textContent = `${coords.name} (${coords.lat}, ${coords.lon})`;
+                document.getElementById('location').value = coords.name;
+            }
+        });
+        
+        // Simulate map click
+        function simulateMapClick() {
+            // Random coordinates within India
+            const lat = 20.5937 + (Math.random() - 0.5) * 20;
+            const lon = 78.9629 + (Math.random() - 0.5) * 20;
+            
+            document.getElementById('latitude').value = lat.toFixed(6);
+            document.getElementById('longitude').value = lon.toFixed(6);
+            document.getElementById('coordinates').textContent = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+            document.getElementById('currentLocation').textContent = `Random Location (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+            document.getElementById('location').value = `Location ${Math.floor(Math.random() * 1000)}`;
+        }
+        
+        // Form submission
+        document.getElementById('recommendationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('result');
+            
+            // Validate location
+            const lat = parseFloat(document.getElementById('latitude').value);
+            const lon = parseFloat(document.getElementById('longitude').value);
+            
+            if (!lat || !lon) {
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>❌ Location Required</h3>
+                    <p>Please select a district or click on the map to select a location.</p>
+                `;
+                return;
+            }
+            
+            const formData = {
+                crop: document.getElementById('crop').value,
+                season: document.getElementById('season').value,
+                soil: document.getElementById('soil').value,
+                preference: document.getElementById('preference').value,
+                location_name: document.getElementById('location').value,
+                latitude: lat,
+                longitude: lon
+            };
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = '🔄 Generating Full Report...';
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.innerHTML = `
+                <h3>🔄 Generating Comprehensive Report</h3>
+                <p>📍 Analyzing location and soil conditions...</p>
+                <p>🌤️ Fetching 7-day weather forecast...</p>
+                <p>🌿 Calculating nutrient requirements...</p>
+                <p>🤖 Running AI prediction models...</p>
+                <p>📊 Compiling detailed recommendations...</p>
+            `;
+            
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/recommend/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    
+                    // Format weather forecast
+                    let weatherHtml = '';
+                    if (data.weather_7day && data.weather_7day.length > 0) {
+                        weatherHtml = `
+                            <div class="weather-forecast">
+                                <h4>🌤️ 7-Day Weather Forecast</h4>
+                                ${data.weather_7day.map(day => `
+                                    <div class="weather-day">
+                                        <span><strong>${new Date(day.day).toLocaleDateString()}</strong></span>
+                                        <span>${day.temperature}°C, ${day.humidity}% humidity</span>
+                                        <span>${day.description}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    }
+                    
+                    // Format nutrient report
+                    let nutrientHtml = '';
+                    if (data.nutrient_report) {
+                        const nutrients = data.nutrient_report;
+                        const maxNutrient = Math.max(nutrients.N, nutrients.P, nutrients.K);
+                        
+                        nutrientHtml = `
+                            <div class="nutrient-report">
+                                <h4>🌿 Nutrient Requirements (kg/hectare)</h4>
+                                <div class="nutrient-item">
+                                    <span>Nitrogen (N):</span>
+                                    <span>${nutrients.N} kg/ha</span>
+                                    <div class="nutrient-bar">
+                                        <div class="nutrient-fill nutrient-n" style="width: ${(nutrients.N/maxNutrient)*100}%"></div>
+                                    </div>
+                                </div>
+                                <div class="nutrient-item">
+                                    <span>Phosphorus (P):</span>
+                                    <span>${nutrients.P} kg/ha</span>
+                                    <div class="nutrient-bar">
+                                        <div class="nutrient-fill nutrient-p" style="width: ${(nutrients.P/maxNutrient)*100}%"></div>
+                                    </div>
+                                </div>
+                                <div class="nutrient-item">
+                                    <span>Potassium (K):</span>
+                                    <span>${nutrients.K} kg/ha</span>
+                                    <div class="nutrient-bar">
+                                        <div class="nutrient-fill nutrient-k" style="width: ${(nutrients.K/maxNutrient)*100}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    resultDiv.innerHTML = `
+                        <h3>✅ Comprehensive Recommendation Report Generated!</h3>
+                        <p><strong>🎯 Recommendation ID:</strong> ${data.id}</p>
+                        <p><strong>🌾 Crop:</strong> ${data.crop}</p>
+                        <p><strong>📍 Location:</strong> ${data.location_name}</p>
+                        <p><strong>🌿 Preferred Technique:</strong> ${data.preferred_technique}</p>
+                        <p><strong>📈 Yield Prediction:</strong> ${data.yield_prediction} kg/hectare</p>
+                        <p><strong>📅 Created:</strong> ${new Date(data.created_at).toLocaleString()}</p>
+                        ${weatherHtml}
+                        ${nutrientHtml}
+                        <p><strong>📋 Detailed Instructions:</strong> Check the step-by-step cultivation guide in the result data.</p>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <h3>❌ Error</h3>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>Message:</strong> ${JSON.stringify(data, null, 2)}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>❌ Network Error</h3>
+                    <p>Unable to connect to the server. Please check if the Django server is running.</p>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Get Full Recommendation Report';
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+

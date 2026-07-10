@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation System with Google Maps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 0;
+            min-height: 700px;
+        }
+        
+        .form-section {
+            padding: 30px;
+            background: #f8f9fa;
+            overflow-y: auto;
+        }
+        
+        .map-section {
+            padding: 0;
+            background: #e9ecef;
+            position: relative;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1em;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #4a7c59;
+            box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+        }
+        
+        .location-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .location-inputs input {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            color: #6c757d;
+            cursor: not-allowed;
+            font-size: 12px;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+            min-height: 700px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #4a7c59 0%, #2c5530 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(74, 124, 89, 0.3);
+        }
+        
+        .btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        
+        .error {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+        
+        .loading {
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            border: 2px solid #17a2b8;
+            color: #0c5460;
+        }
+        
+        .result h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .result p {
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .result strong {
+            color: #2c5530;
+        }
+        
+        .location-info {
+            background: #e3f2fd;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .location-info p {
+            margin: 3px 0;
+            color: #1565c0;
+            font-size: 0.9em;
+        }
+        
+        .api-links {
+            margin-top: 30px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .api-links h3 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        .api-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .api-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .map-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .map-controls button {
+            background: #4a7c59;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 2px;
+        }
+        
+        .map-controls button:hover {
+            background: #2c5530;
+        }
+        
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-section {
+                order: 2;
+            }
+            
+            .map-section {
+                order: 1;
+                min-height: 400px;
+            }
+            
+            #map {
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌱 Crop Recommendation System</h1>
+            <p>Get AI-powered crop recommendations with interactive location selection</p>
+        </div>
+        
+        <div class="content">
+            <div class="form-section">
+                <form id="recommendationForm">
+                    <div class="form-group">
+                        <label for="crop">🌾 Crop Type:</label>
+                        <select id="crop" required>
+                            <option value="">Select a crop</option>
+                            <option value="Rice">Rice</option>
+                            <option value="Wheat">Wheat</option>
+                            <option value="Maize">Maize</option>
+                            <option value="Sugarcane">Sugarcane</option>
+                            <option value="Cotton">Cotton</option>
+                            <option value="Soybean">Soybean</option>
+                            <option value="Potato">Potato</option>
+                            <option value="Tomato">Tomato</option>
+                            <option value="Onion">Onion</option>
+                            <option value="Chili">Chili</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="season">🌤️ Season:</label>
+                        <select id="season" required>
+                            <option value="">Select a season</option>
+                            <option value="Kharif">Kharif (Monsoon)</option>
+                            <option value="Rabi">Rabi (Winter)</option>
+                            <option value="Zaid">Zaid (Summer)</option>
+                            <option value="Monsoon">Monsoon</option>
+                            <option value="Winter">Winter</option>
+                            <option value="Summer">Summer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="soil">🌍 Soil Type:</label>
+                        <select id="soil" required>
+                            <option value="">Select soil type</option>
+                            <option value="Clay">Clay</option>
+                            <option value="Sandy">Sandy</option>
+                            <option value="Loamy">Loamy</option>
+                            <option value="Silty">Silty</option>
+                            <option value="Peaty">Peaty</option>
+                            <option value="Chalky">Chalky</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="preference">🌿 Farming Preference:</label>
+                        <select id="preference" required>
+                            <option value="">Select preference</option>
+                            <option value="Organic">Organic</option>
+                            <option value="Inorganic">Inorganic</option>
+                            <option value="Mixed">Mixed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">📍 Location Name:</label>
+                        <input type="text" id="location" placeholder="e.g., Delhi, Mumbai, Bangalore" required>
+                    </div>
+                    
+                    <div class="location-info">
+                        <p><strong>📍 Selected Location:</strong> <span id="currentLocation">Click on the map to select</span></p>
+                        <p><strong>🌐 Coordinates:</strong> <span id="coordinates">Not selected</span></p>
+                    </div>
+                    
+                    <div class="location-inputs">
+                        <div class="form-group">
+                            <label for="latitude">Latitude:</label>
+                            <input type="number" id="latitude" step="any" placeholder="Auto-filled" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="longitude">Longitude:</label>
+                            <input type="number" id="longitude" step="any" placeholder="Auto-filled" readonly>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="submitBtn">
+                        🚀 Get Recommendation
+                    </button>
+                </form>
+                
+                <div id="result" class="result"></div>
+                
+                <div class="api-links">
+                    <h3>🔗 Quick Links:</h3>
+                    <a href="http://127.0.0.1:8000/api/status/" target="_blank">API Status</a>
+                    <a href="http://127.0.0.1:8000/api/recommend/history/" target="_blank">History</a>
+                    <a href="http://127.0.0.1:8000/admin/" target="_blank">Admin</a>
+                </div>
+            </div>
+            
+            <div class="map-section">
+                <div class="map-controls">
+                    <button onclick="getCurrentLocation()">📍 My Location</button>
+                    <button onclick="centerOnIndia()">🇮🇳 India</button>
+                </div>
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+    
+    <script>
+        let map;
+        let marker;
+        let geocoder;
+        
+        // Initialize map
+        function initMap() {
+            // Default center (Delhi, India)
+            const defaultCenter = { lat: 28.6139, lng: 77.2090 };
+            
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 6,
+                center: defaultCenter,
+                mapTypeId: 'terrain',
+                styles: [
+                    {
+                        featureType: 'poi',
+                        elementType: 'labels',
+                        stylers: [{ visibility: 'off' }]
+                    }
+                ]
+            });
+            
+            geocoder = new google.maps.Geocoder();
+            
+            // Add click listener to map
+            map.addListener('click', function(event) {
+                const lat = event.latLng.lat();
+                const lng = event.latLng.lng();
+                
+                // Update form fields
+                document.getElementById('latitude').value = lat.toFixed(6);
+                document.getElementById('longitude').value = lng.toFixed(6);
+                document.getElementById('coordinates').textContent = `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+                
+                // Add/update marker
+                if (marker) {
+                    marker.setPosition(event.latLng);
+                } else {
+                    marker = new google.maps.Marker({
+                        position: event.latLng,
+                        map: map,
+                        title: 'Selected Location',
+                        animation: google.maps.Animation.DROP
+                    });
+                }
+                
+                // Reverse geocoding to get address
+                geocoder.geocode({ location: event.latLng }, function(results, status) {
+                    if (status === 'OK' && results[0]) {
+                        const address = results[0].formatted_address;
+                        document.getElementById('currentLocation').textContent = address;
+                        document.getElementById('location').value = address.split(',')[0]; // Use first part as location name
+                    } else {
+                        document.getElementById('currentLocation').textContent = `Location (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+                    }
+                });
+            });
+        }
+        
+        // Get current location
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    
+                    map.setCenter(pos);
+                    map.setZoom(15);
+                    
+                    // Simulate click at current location
+                    const clickEvent = {
+                        latLng: new google.maps.LatLng(pos.lat, pos.lng)
+                    };
+                    map.getClickableIcons = function() { return true; };
+                    google.maps.event.trigger(map, 'click', clickEvent);
+                }, function() {
+                    alert('Error: The Geolocation service failed.');
+                });
+            } else {
+                alert('Error: Your browser doesn\'t support geolocation.');
+            }
+        }
+        
+        // Center map on India
+        function centerOnIndia() {
+            const india = { lat: 20.5937, lng: 78.9629 };
+            map.setCenter(india);
+            map.setZoom(5);
+        }
+        
+        // Auto-fill coordinates for common Indian cities
+        const cityCoordinates = {
+            'delhi': { lat: 28.6139, lon: 77.2090 },
+            'mumbai': { lat: 19.0760, lon: 72.8777 },
+            'bangalore': { lat: 12.9716, lon: 77.5946 },
+            'kolkata': { lat: 22.5726, lon: 88.3639 },
+            'chennai': { lat: 13.0827, lon: 80.2707 },
+            'hyderabad': { lat: 17.3850, lon: 78.4867 },
+            'pune': { lat: 18.5204, lon: 73.8567 },
+            'ahmedabad': { lat: 23.0225, lon: 72.5714 },
+            'jaipur': { lat: 26.9124, lon: 75.7873 },
+            'lucknow': { lat: 26.8467, lon: 80.9462 }
+        };
+
+        document.getElementById('location').addEventListener('input', function() {
+            const city = this.value.toLowerCase().trim();
+            if (cityCoordinates[city]) {
+                const coords = cityCoordinates[city];
+                document.getElementById('latitude').value = coords.lat;
+                document.getElementById('longitude').value = coords.lon;
+                document.getElementById('coordinates').textContent = `${coords.lat}, ${coords.lon}`;
+                document.getElementById('currentLocation').textContent = `${this.value} (${coords.lat}, ${coords.lon})`;
+                
+                // Update map
+                if (map) {
+                    const pos = { lat: coords.lat, lng: coords.lon };
+                    map.setCenter(pos);
+                    map.setZoom(10);
+                    
+                    if (marker) {
+                        marker.setPosition(pos);
+                    } else {
+                        marker = new google.maps.Marker({
+                            position: pos,
+                            map: map,
+                            title: this.value
+                        });
+                    }
+                }
+            }
+        });
+
+        // Form submission
+        document.getElementById('recommendationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('result');
+            
+            // Validate location
+            const lat = parseFloat(document.getElementById('latitude').value);
+            const lon = parseFloat(document.getElementById('longitude').value);
+            
+            if (!lat || !lon) {
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>❌ Location Required</h3>
+                    <p>Please select a location on the map or enter coordinates manually.</p>
+                `;
+                return;
+            }
+            
+            const formData = {
+                crop: document.getElementById('crop').value,
+                season: document.getElementById('season').value,
+                soil: document.getElementById('soil').value,
+                preference: document.getElementById('preference').value,
+                location_name: document.getElementById('location').value,
+                latitude: lat,
+                longitude: lon
+            };
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = '🔄 Processing...';
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.innerHTML = `
+                <h3>🔄 Processing Your Request</h3>
+                <p>Analyzing your location and farming preferences...</p>
+                <p>Generating AI-powered recommendations...</p>
+            `;
+            
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/recommend/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <h3>✅ Recommendation Generated Successfully!</h3>
+                        <p><strong>🎯 ID:</strong> ${data.id}</p>
+                        <p><strong>🌾 Crop:</strong> ${data.crop}</p>
+                        <p><strong>📍 Location:</strong> ${data.location_name}</p>
+                        <p><strong>🌿 Technique:</strong> ${data.preferred_technique}</p>
+                        <p><strong>📈 Yield:</strong> ${data.yield_prediction} kg/hectare</p>
+                        <p><strong>📅 Created:</strong> ${new Date(data.created_at).toLocaleString()}</p>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <h3>❌ Error</h3>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>Message:</strong> ${JSON.stringify(data, null, 2)}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>❌ Network Error</h3>
+                    <p>Unable to connect to the server. Please check if the Django server is running.</p>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Get Recommendation';
+            }
+        });
+        
+        // Fallback for when Google Maps API is not available
+        if (typeof google === 'undefined') {
+            document.getElementById('map').innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e3f2fd 25%, transparent 25%), linear-gradient(-45deg, #e3f2fd 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e3f2fd 75%), linear-gradient(-45deg, transparent 75%, #e3f2fd 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px; color: #666; text-align: center; padding: 20px;">
+                    <div>
+                        <h3>🗺️ Interactive Map</h3>
+                        <p>Click anywhere on the map to select your location</p>
+                        <p><em>Google Maps API key required for full functionality</em></p>
+                        <br>
+                        <p><strong>For now:</strong> Enter coordinates manually or use a location name</p>
+                        <br>
+                        <button onclick="this.parentElement.parentElement.click()" style="background: #4a7c59; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Click to Select Location</button>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
+
+
+
+

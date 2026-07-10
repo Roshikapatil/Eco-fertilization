@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation Results - Enhanced System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .header h1 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #4a7c59 0%, #2c5530 100%);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 124, 89, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        }
+        
+        .main-content {
+            margin-top: 80px;
+            padding: 20px;
+            min-height: calc(100vh - 80px);
+        }
+        
+        .results-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 20px;
+        }
+        
+        .main-results {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .result-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #4a7c59;
+            background: #f8f9fa;
+        }
+        
+        .result-section h3 {
+            color: #2c5530;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .weather-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .weather-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            border-color: #4a7c59;
+        }
+        
+        .weather-card h4 {
+            color: #2c5530;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .weather-temp {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+            margin: 10px 0;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .nutrient-daily {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .nutrient-daily h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        
+        .fertilizer-schedule {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border-left: 3px solid #28a745;
+        }
+        
+        .fertilizer-schedule h5 {
+            color: #155724;
+            margin-bottom: 5px;
+        }
+        
+        .fertilizer-schedule p {
+            margin: 3px 0;
+            font-size: 0.9em;
+        }
+        
+        .map-minimized {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #2196f3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .map-minimized:hover {
+            background: #bbdefb;
+            transform: scale(1.02);
+        }
+        
+        .map-minimized h4 {
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+        
+        .location-info {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .location-info h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .location-info p {
+            margin: 5px 0;
+            color: #856404;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4a7c59;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #dc3545;
+            text-align: center;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .tab.active {
+            border-bottom-color: #4a7c59;
+            color: #4a7c59;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 1024px) {
+            .results-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌱 Crop Recommendation Results</h1>
+        <div class="header-controls">
+            <a href="enhanced_crop_system_fixed.html" class="btn">← Back to Form</a>
+            <a href="login.html" class="btn btn-secondary">Logout</a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="results-container">
+            <div class="main-results">
+                <div id="loadingState" class="loading">
+                    <div class="spinner"></div>
+                    <h3>Loading Recommendation Results...</h3>
+                    <p>Please wait while we process your crop recommendation data.</p>
+                </div>
+                
+                <div id="errorState" class="error" style="display: none;">
+                    <h3>❌ Error Loading Results</h3>
+                    <p id="errorMessage">Unable to load recommendation results.</p>
+                </div>
+                
+                <div id="resultsContent" style="display: none;">
+                    <div class="tabs">
+                        <div class="tab active" onclick="showTab('overview')">📊 Overview</div>
+                        <div class="tab" onclick="showTab('weather')">🌤️ Weather</div>
+                        <div class="tab" onclick="showTab('nutrients')">🌿 Nutrients</div>
+                        <div class="tab" onclick="showTab('schedule')">📅 Schedule</div>
+                    </div>
+                    
+                    <div id="overview" class="tab-content active">
+                        <div class="result-section">
+                            <h3>🎯 Recommendation Summary</h3>
+                            <div id="summaryContent"></div>
+                        </div>
+                        
+                        <div class="result-section">
+                            <h3>📈 Yield Prediction & Technique</h3>
+                            <div id="yieldContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="weather" class="tab-content">
+                        <div class="result-section">
+                            <h3>🌤️ 7-Day Weather Forecast</h3>
+                            <div id="weatherContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="nutrients" class="tab-content">
+                        <div class="result-section">
+                            <h3>🌿 Detailed Nutrient Report</h3>
+                            <div id="nutrientContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="schedule" class="tab-content">
+                        <div class="result-section">
+                            <h3>📅 Application Schedule</h3>
+                            <div id="scheduleContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="location-info">
+                    <h4>📍 Location Details</h4>
+                    <div id="locationDetails"></div>
+                </div>
+                
+                <div class="map-minimized" onclick="openMapModal()">
+                    <h4>🗺️ View Map</h4>
+                    <p>Click to view location on map</p>
+                    <div id="mapPreview"></div>
+                </div>
+                
+                <div class="result-section">
+                    <h3>📋 Quick Actions</h3>
+                    <button class="btn" onclick="downloadReport()" style="width: 100%; margin-bottom: 10px;">
+                        📥 Download Report
+                    </button>
+                    <button class="btn btn-secondary" onclick="printReport()" style="width: 100%; margin-bottom: 10px;">
+                        🖨️ Print Report
+                    </button>
+                    <button class="btn" onclick="shareReport()" style="width: 100%;">
+                        📤 Share Report
+                    </button>
+                    <button class="btn" onclick="testShareFunction()" style="width: 100%; margin-top: 10px; background: #ff6b6b;">
+                        🧪 Test Share Function
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let recommendationData = null;
+        window.recommendationData = null; // Make it globally accessible
+        
+        // Check if user is logged in
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+        
+        // Load recommendation data from URL parameters or localStorage
+        async function loadRecommendationData() {
+            try {
+                // Try to get recommendation ID from URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const recommendationId = urlParams.get('id');
+                
+                if (recommendationId) {
+                    // Fetch specific recommendation
+                    const response = await fetch(`http://127.0.0.1:8000/api/recommend/${recommendationId}/`);
+                    if (response.ok) {
+                        recommendationData = await response.json();
+                        window.recommendationData = recommendationData; // Update global version
+                    } else {
+                        throw new Error('Recommendation not found');
+                    }
+                } else {
+                    // Get latest recommendation from localStorage
+                    const latestRecommendation = localStorage.getItem('latestRecommendation');
+                    if (latestRecommendation) {
+                        recommendationData = JSON.parse(latestRecommendation);
+                        window.recommendationData = recommendationData; // Update global version
+                    } else {
+                        throw new Error('No recommendation data available');
+                    }
+                }
+                
+                displayResults();
+                
+            } catch (error) {
+                console.error('Error loading recommendation data:', error);
+                showError('Unable to load recommendation results. Please go back and generate a new recommendation.');
+            }
+        }
+        
+        function displayResults() {
+            if (!recommendationData) {
+                showError('No recommendation data available');
+                return;
+            }
+            
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('resultsContent').style.display = 'block';
+            
+            // Display summary
+            displaySummary();
+            
+            // Display weather
+            displayWeather();
+            
+            // Display nutrients
+            displayNutrients();
+            
+            // Display schedule
+            displaySchedule();
+            
+            // Display location details
+            displayLocationDetails();
+        }
+        
+        function displaySummary() {
+            const summaryContent = document.getElementById('summaryContent');
+            summaryContent.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                        <h4 style="color: #2c5530; margin-bottom: 10px;">🌾 Crop</h4>
+                        <p style="font-size: 1.2em; font-weight: bold;">${recommendationData.crop}</p>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                        <h4 style="color: #2c5530; margin-bottom: 10px;">🌤️ Season</h4>
+                        <p style="font-size: 1.2em; font-weight: bold;">${recommendationData.season}</p>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                        <h4 style="color: #2c5530; margin-bottom: 10px;">🌍 Soil</h4>
+                        <p style="font-size: 1.2em; font-weight: bold;">${recommendationData.soil}</p>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                        <h4 style="color: #2c5530; margin-bottom: 10px;">🌿 Method</h4>
+                        <p style="font-size: 1.2em; font-weight: bold;">${recommendationData.preference}</p>
+                    </div>
+                </div>
+            `;
+            
+            const yieldContent = document.getElementById('yieldContent');
+            yieldContent.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                        <h4 style="color: #2c5530; margin-bottom: 10px;">📈 Predicted Yield</h4>
+                        <p style="font-size: 2em; font-weight: bold; color: #28a745;">${recommendationData.yield_prediction} kg/ha</p>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                        <h4 style="color: #2c5530; margin-bottom: 10px;">🔧 Recommended Technique</h4>
+                        <p style="font-size: 1.2em; font-weight: bold; color: #007bff;">${recommendationData.preferred_technique}</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function displayWeather() {
+            const weatherContent = document.getElementById('weatherContent');
+            
+            if (recommendationData.weather_7day && recommendationData.weather_7day.length > 0) {
+                const weatherHtml = recommendationData.weather_7day.map(day => `
+                    <div class="weather-card">
+                        <h4>${new Date(day.day).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</h4>
+                        <div class="weather-temp">${day.temperature}°C</div>
+                        <div class="weather-details">
+                            <div>💧 ${day.humidity}%</div>
+                            <div>🌧️ ${day.rainfall}mm</div>
+                        </div>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9em;">${day.description}</p>
+                    </div>
+                `).join('');
+                
+                weatherContent.innerHTML = `<div class="weather-grid">${weatherHtml}</div>`;
+            } else {
+                weatherContent.innerHTML = '<p>Weather data not available for this recommendation.</p>';
+            }
+        }
+        
+        function displayNutrients() {
+            const nutrientContent = document.getElementById('nutrientContent');
+            
+            if (recommendationData.nutrient_report) {
+                const nutrients = recommendationData.nutrient_report;
+                const preference = recommendationData.preference;
+                
+                let nutrientHtml = '';
+                
+                // Display different content based on farming preference
+                if (preference === 'Organic' && nutrients.organic_details) {
+                    // Show organic farming details
+                    const organic = nutrients.organic_details;
+                    nutrientHtml = `
+                        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                            <h4 style="color: #2c5530; margin-bottom: 15px;">🌿 Organic Farming Details</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                <div style="text-align: center; padding: 15px; background: #e8f5e8; border-radius: 8px;">
+                                    <h5 style="color: #2e7d32;">Total Organic Matter</h5>
+                                    <p style="font-size: 1.5em; font-weight: bold; color: #388e3c;">${organic.total_organic_matter} kg/ha</p>
+                                </div>
+                            </div>
+                            
+                            <h5 style="color: #2c5530; margin: 20px 0 10px 0;">🌱 Organic Fertilizers</h5>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                ${Object.entries(organic.fertilizers).map(([key, fertilizer]) => `
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #28a745;">
+                                        <h6 style="color: #155724; margin-bottom: 8px;">${key.replace(/_/g, ' ').toUpperCase()}</h6>
+                                        <p><strong>Quantity:</strong> ${fertilizer.quantity} kg/ha</p>
+                                        <p><strong>NPK Content:</strong> N-${fertilizer.npk_content.N}%, P-${fertilizer.npk_content.P}%, K-${fertilizer.npk_content.K}%</p>
+                                        <p><strong>Application:</strong> ${fertilizer.application}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <h5 style="color: #2c5530; margin: 20px 0 10px 0;">🌿 Organic Practices</h5>
+                            <ul style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                                ${organic.organic_practices.map(practice => `<li style="margin: 5px 0;">${practice}</li>`).join('')}
+                            </ul>
+                            
+                            <h5 style="color: #2c5530; margin: 20px 0 10px 0;">✅ Benefits</h5>
+                            <ul style="background: #e8f5e8; padding: 15px; border-radius: 8px;">
+                                ${organic.benefits.map(benefit => `<li style="margin: 5px 0;">${benefit}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                    
+                } else if (preference === 'Inorganic' && nutrients.npk_nutrients) {
+                    // Show NPK nutrients details
+                    const npk = nutrients.npk_nutrients;
+                    nutrientHtml = `
+                        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                            <h4 style="color: #2c5530; margin-bottom: 15px;">🧪 NPK Nutrients - Chemical Fertilizers</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                                <div style="text-align: center; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                                    <h5 style="color: #1565c0;">Nitrogen (N)</h5>
+                                    <p style="font-size: 1.5em; font-weight: bold; color: #1976d2;">${npk.nitrogen.value} kg/ha</p>
+                                    <p style="font-size: 0.9em; color: #666;">Source: ${npk.nitrogen.source}</p>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: #e8f5e8; border-radius: 8px;">
+                                    <h5 style="color: #2e7d32;">Phosphorus (P)</h5>
+                                    <p style="font-size: 1.5em; font-weight: bold; color: #388e3c;">${npk.phosphorus.value} kg/ha</p>
+                                    <p style="font-size: 0.9em; color: #666;">Source: ${npk.phosphorus.source}</p>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: #fff3e0; border-radius: 8px;">
+                                    <h5 style="color: #f57c00;">Potassium (K)</h5>
+                                    <p style="font-size: 1.5em; font-weight: bold; color: #f57c00;">${npk.potassium.value} kg/ha</p>
+                                    <p style="font-size: 0.9em; color: #666;">Source: ${npk.potassium.source}</p>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: #f3e5f5; border-radius: 8px;">
+                                    <h5 style="color: #7b1fa2;">Total NPK</h5>
+                                    <p style="font-size: 1.5em; font-weight: bold; color: #9c27b0;">${npk.total_npk} kg/ha</p>
+                                </div>
+                            </div>
+                            
+                            <h5 style="color: #2c5530; margin: 20px 0 10px 0;">🧪 Chemical Fertilizers</h5>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                ${Object.entries(npk.fertilizers).map(([key, fertilizer]) => `
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #007bff;">
+                                        <h6 style="color: #004085; margin-bottom: 8px;">${key.replace(/_/g, ' ').toUpperCase()}</h6>
+                                        <p><strong>Quantity:</strong> ${fertilizer.quantity} kg/ha</p>
+                                        <p><strong>NPK Content:</strong> N-${fertilizer.npk_content.N}%, P-${fertilizer.npk_content.P}%, K-${fertilizer.npk_content.K}%</p>
+                                        <p><strong>Application:</strong> ${fertilizer.application}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <h5 style="color: #2c5530; margin: 20px 0 10px 0;">✅ Benefits</h5>
+                            <ul style="background: #e3f2fd; padding: 15px; border-radius: 8px;">
+                                ${npk.benefits.map(benefit => `<li style="margin: 5px 0;">${benefit}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                    
+                } else if (preference === 'Mixed' && nutrients.mixed_details) {
+                    // Show mixed farming details
+                    const mixed = nutrients.mixed_details;
+                    nutrientHtml = `
+                        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                            <h4 style="color: #2c5530; margin-bottom: 15px;">🌿 Mixed Farming Details</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                <div style="text-align: center; padding: 15px; background: #e8f5e8; border-radius: 8px;">
+                                    <h5 style="color: #2e7d32;">Organic Ratio</h5>
+                                    <p style="font-size: 1.5em; font-weight: bold; color: #388e3c;">${mixed.organic_ratio}</p>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                                    <h5 style="color: #1565c0;">Inorganic Ratio</h5>
+                                    <p style="font-size: 1.5em; font-weight: bold; color: #1976d2;">${mixed.inorganic_ratio}</p>
+                                </div>
+                            </div>
+                            
+                            <h5 style="color: #2c5530; margin: 20px 0 10px 0;">🌱 Mixed Fertilizer Combinations</h5>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                                ${Object.entries(mixed.fertilizers).map(([key, fertilizer]) => `
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107;">
+                                        <h6 style="color: #856404; margin-bottom: 8px;">${key.replace(/_/g, ' ').toUpperCase()}</h6>
+                                        <div style="margin: 10px 0;">
+                                            <p><strong>🌿 Organic:</strong> ${fertilizer.organic.type} (${fertilizer.organic.quantity} kg/ha)</p>
+                                            <p><strong>🧪 Inorganic:</strong> ${fertilizer.inorganic.type} (${fertilizer.inorganic.quantity} kg/ha)</p>
+                                        </div>
+                                        <p><strong>Application:</strong> ${fertilizer.application}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <h5 style="color: #2c5530; margin: 20px 0 10px 0;">📊 Nutrient Breakdown</h5>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                                <p><strong>🌿 Organic Contribution:</strong> ${mixed.nutrient_breakdown.organic_contribution}</p>
+                                <p><strong>🧪 Inorganic Contribution:</strong> ${mixed.nutrient_breakdown.inorganic_contribution}</p>
+                            </div>
+                            
+                            <h5 style="color: #2c5530; margin: 20px 0 10px 0;">🌿 Mixed Practices</h5>
+                            <ul style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                                ${mixed.mixed_practices.map(practice => `<li style="margin: 5px 0;">${practice}</li>`).join('')}
+                            </ul>
+                            
+                            <h5 style="color: #2c5530; margin: 20px 0 10px 0;">✅ Benefits</h5>
+                            <ul style="background: #fff3e0; padding: 15px; border-radius: 8px;">
+                                ${mixed.benefits.map(benefit => `<li style="margin: 5px 0;">${benefit}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                // Add daily nutrient recommendations for 7 days (if available)
+                if (nutrients.daily_recommendations) {
+                    nutrientHtml += '<h4 style="color: #2c5530; margin-bottom: 20px;">📅 7-Day Detailed Process Schedule</h4>';
+                    nutrients.daily_recommendations.forEach((day, index) => {
+                        const stageColors = {
+                            'Soil Preparation': '#e3f2fd',
+                            'Planting & Watering': '#e8f5e8',
+                            'First Top Dressing': '#fff3e0',
+                            'Growth Monitoring': '#f3e5f5',
+                            'Foliar Application': '#e0f2f1',
+                            'Mid-Growth Care': '#fce4ec',
+                            'Final Application': '#f1f8e9'
+                        };
+                        
+                        const stageColor = stageColors[day.stage] || '#f5f5f5';
+                        
+                        nutrientHtml += `
+                            <div style="background: white; border-radius: 12px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                <div style="background: ${stageColor}; padding: 15px; border-bottom: 3px solid #2c5530;">
+                                    <h4 style="color: #2c5530; margin: 0; font-size: 1.3em;">Day ${day.day} - ${day.stage}</h4>
+                                    <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">${new Date(day.date).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })} | ${day.time}</p>
+                                </div>
+                                
+                                <div style="padding: 20px;">
+                                    <div style="margin-bottom: 15px;">
+                                        <h5 style="color: #2c5530; margin-bottom: 10px;">📋 Activities:</h5>
+                                        <ul style="margin: 0; padding-left: 20px;">
+                                            ${day.activities.map(activity => `<li style="margin: 5px 0; color: #555;">${activity}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    
+                                    <div style="margin-bottom: 15px;">
+                                        <h5 style="color: #2c5530; margin-bottom: 10px;">🌱 Fertilizer Applications:</h5>
+                                        ${day.fertilizers.length > 0 ? `
+                                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                                ${day.fertilizers.map(fertilizer => `
+                                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #4a7c59;">
+                                                        <h6 style="color: #2c5530; margin-bottom: 8px;">${fertilizer.type}</h6>
+                                                        <p style="margin: 5px 0;"><strong>Quantity:</strong> ${fertilizer.quantity} kg/ha</p>
+                                                        <p style="margin: 5px 0;"><strong>Application:</strong> ${fertilizer.application}</p>
+                                                        <p style="margin: 5px 0; color: #666; font-size: 0.9em;"><strong>Time:</strong> ${fertilizer.time}</p>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        ` : `
+                                            <p style="color: #666; font-style: italic;">No specific fertilizer applications scheduled for this day.</p>
+                                        `}
+                                    </div>
+                                    
+                                    <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; border-left: 4px solid #4a7c59;">
+                                        <h6 style="color: #2c5530; margin-bottom: 8px;">📝 Description:</h6>
+                                        <p style="margin: 0; color: #555;">${day.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                
+                nutrientContent.innerHTML = nutrientHtml;
+            } else {
+                nutrientContent.innerHTML = '<p>Nutrient data not available for this recommendation.</p>';
+            }
+        }
+        
+        function displaySchedule() {
+            const scheduleContent = document.getElementById('scheduleContent');
+            
+            if (recommendationData.nutrient_report) {
+                const nutrients = recommendationData.nutrient_report;
+                const preference = recommendationData.preference;
+                let schedule = null;
+                
+                // Get schedule based on farming preference
+                if (preference === 'Organic' && nutrients.organic_details) {
+                    schedule = nutrients.organic_details.application_schedule;
+                } else if (preference === 'Inorganic' && nutrients.npk_nutrients) {
+                    schedule = nutrients.npk_nutrients.application_schedule;
+                } else if (preference === 'Mixed' && nutrients.mixed_details) {
+                    schedule = nutrients.mixed_details.application_schedule;
+                }
+                
+                if (schedule) {
+                    const scheduleHtml = Object.entries(schedule).map(([stage, instruction]) => `
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px; border-left: 4px solid #ffc107;">
+                            <h4 style="color: #856404; margin-bottom: 8px;">${stage.replace(/_/g, ' ').toUpperCase()}</h4>
+                            <p style="color: #856404;">${instruction}</p>
+                        </div>
+                    `).join('');
+                    
+                    scheduleContent.innerHTML = `
+                        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                            <h4 style="color: #2c5530; margin-bottom: 15px;">📅 ${preference} Farming Application Schedule</h4>
+                            ${scheduleHtml}
+                        </div>
+                    `;
+                } else {
+                    scheduleContent.innerHTML = '<p>Schedule data not available for this recommendation.</p>';
+                }
+            } else {
+                scheduleContent.innerHTML = '<p>Schedule data not available for this recommendation.</p>';
+            }
+        }
+        
+        function displayLocationDetails() {
+            const locationDetails = document.getElementById('locationDetails');
+            locationDetails.innerHTML = `
+                <p><strong>📍 Location:</strong> ${recommendationData.location_name}</p>
+                <p><strong>🌐 Coordinates:</strong> ${recommendationData.latitude.toFixed(4)}, ${recommendationData.longitude.toFixed(4)}</p>
+                <p><strong>📅 Generated:</strong> ${new Date(recommendationData.created_at).toLocaleString()}</p>
+            `;
+        }
+        
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        function showError(message) {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+            document.getElementById('errorMessage').textContent = message;
+        }
+        
+        function openMapModal() {
+            // Open map in a new window or modal
+            const lat = recommendationData.latitude;
+            const lng = recommendationData.longitude;
+            const mapUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+            window.open(mapUrl, '_blank');
+        }
+        
+        function downloadReport() {
+            generateScientificPDFReport();
+        }
+        
+        function generateScientificPDFReport() {
+            // Show loading state
+            const downloadBtn = document.querySelector('button[onclick="downloadReport()"]');
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '📄 Generating PDF...';
+            downloadBtn.disabled = true;
+            
+            try {
+                // Create comprehensive scientific report
+                const report = createScientificReport();
+                
+                // Generate PDF using jsPDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                
+                // Set up fonts and styles
+                doc.setFont('helvetica');
+                
+                // Add title page
+                addTitlePage(doc, report);
+                
+                // Add table of contents
+                doc.addPage();
+                addTableOfContents(doc, report);
+                
+                // Add executive summary
+                doc.addPage();
+                addExecutiveSummary(doc, report);
+                
+                // Add methodology
+                doc.addPage();
+                addMethodology(doc, report);
+                
+                // Add 7-day detailed schedule
+                doc.addPage();
+                addDetailedSchedule(doc, report);
+                
+                // Add nutrient analysis
+                doc.addPage();
+                addNutrientAnalysis(doc, report);
+                
+                // Add weather analysis
+                doc.addPage();
+                addWeatherAnalysis(doc, report);
+                
+                // Add recommendations
+                doc.addPage();
+                addRecommendations(doc, report);
+                
+                // Add appendices
+                doc.addPage();
+                addAppendices(doc, report);
+                
+                // Save the PDF
+                const fileName = `Crop_Recommendation_Report_${report.crop}_${report.location}_${new Date().toISOString().split('T')[0]}.pdf`;
+                doc.save(fileName);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF report. Please try again.');
+            } finally {
+                // Restore button state
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+            }
+        }
+        
+        function createScientificReport() {
+            const data = window.recommendationData || recommendationData;
+            const nutrients = data.nutrient_report || {};
+            const weather = data.weather_7day || [];
+            const dailySchedule = nutrients.daily_recommendations || [];
+            
+            return {
+                // Basic Information
+                reportId: data.id,
+                crop: data.crop,
+                season: data.season,
+                soil: data.soil,
+                preference: data.preference,
+                location: data.location_name,
+                coordinates: `${data.latitude}, ${data.longitude}`,
+                generatedAt: new Date().toISOString(),
+                
+                // Technical Data
+                yieldPrediction: data.yield_prediction,
+                preferredTechnique: data.preferred_technique,
+                
+                // Nutrient Data
+                nutrients: nutrients,
+                dailySchedule: dailySchedule,
+                
+                // Weather Data
+                weather: weather,
+                
+                // Additional Data
+                stepByStepGuide: data.step_by_step_guide || '',
+                plantingDates: data.planting_dates || {}
+            };
+        }
+        
+        function addTitlePage(doc, report) {
+            // Title
+            doc.setFontSize(24);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CROP RECOMMENDATION', 105, 50, { align: 'center' });
+            doc.text('SCIENTIFIC REPORT', 105, 65, { align: 'center' });
+            
+            // Subtitle
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`${report.crop} Cultivation Analysis`, 105, 85, { align: 'center' });
+            
+            // Location and details
+            doc.setFontSize(12);
+            doc.text(`Location: ${report.location}`, 105, 110, { align: 'center' });
+            doc.text(`Coordinates: ${report.coordinates}`, 105, 120, { align: 'center' });
+            doc.text(`Season: ${report.season} | Soil: ${report.soil}`, 105, 130, { align: 'center' });
+            doc.text(`Farming Method: ${report.preference}`, 105, 140, { align: 'center' });
+            
+            // Report details
+            doc.setFontSize(10);
+            doc.text(`Report ID: ${report.reportId}`, 105, 160, { align: 'center' });
+            doc.text(`Generated: ${new Date(report.generatedAt).toLocaleString()}`, 105, 170, { align: 'center' });
+            
+            // Footer
+            doc.setFontSize(8);
+            doc.text('AI-Powered Agricultural Intelligence System', 105, 280, { align: 'center' });
+            doc.text('Comprehensive 7-Day Cultivation Schedule', 105, 285, { align: 'center' });
+        }
+        
+        function addTableOfContents(doc, report) {
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('TABLE OF CONTENTS', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            
+            const toc = [
+                '1. Executive Summary ......................... 3',
+                '2. Methodology ............................. 4',
+                '3. 7-Day Detailed Cultivation Schedule ..... 5',
+                '4. Nutrient Analysis ....................... 6',
+                '5. Weather Analysis ......................... 7',
+                '6. Recommendations .......................... 8',
+                '7. Appendices .............................. 9'
+            ];
+            
+            toc.forEach((item, index) => {
+                doc.text(item, 20, 50 + (index * 15));
+            });
+        }
+        
+        function addExecutiveSummary(doc, report) {
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('EXECUTIVE SUMMARY', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            
+            const summary = [
+                `This comprehensive scientific report provides detailed recommendations for ${report.crop} cultivation`,
+                `in ${report.location} during the ${report.season} season. The analysis covers a complete 7-day`,
+                `cultivation schedule with specific nutrient applications, weather considerations, and`,
+                `farming methodology recommendations.`,
+                '',
+                `Key Findings:`,
+                `• Recommended farming method: ${report.preference}`,
+                `• Predicted yield: ${report.yieldPrediction} kg/ha`,
+                `• Soil type: ${report.soil}`,
+                `• Total cultivation period: 7 days with detailed daily processes`,
+                '',
+                `The report includes comprehensive nutrient analysis, weather forecasting, and`,
+                `step-by-step cultivation guidelines optimized for the specified location and`,
+                `environmental conditions.`
+            ];
+            
+            summary.forEach((line, index) => {
+                doc.text(line, 20, 50 + (index * 8));
+            });
+        }
+        
+        function addMethodology(doc, report) {
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('METHODOLOGY', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            
+            const methodology = [
+                'This report utilizes advanced machine learning algorithms and agricultural',
+                'databases to provide scientifically-based crop recommendations. The methodology',
+                'includes:',
+                '',
+                '1. Data Collection:',
+                '   • Soil composition analysis',
+                '   • Weather pattern assessment',
+                '   • Crop-specific requirements',
+                '   • Location-based environmental factors',
+                '',
+                '2. Analysis Methods:',
+                '   • Random Forest regression for yield prediction',
+                '   • XGBoost algorithms for technique optimization',
+                '   • Nutrient requirement calculations',
+                '   • Weather impact modeling',
+                '',
+                '3. Validation:',
+                '   • Historical data comparison',
+                '   • Agricultural best practices integration',
+                '   • Location-specific optimization'
+            ];
+            
+            methodology.forEach((line, index) => {
+                doc.text(line, 20, 50 + (index * 6));
+            });
+        }
+        
+        function addDetailedSchedule(doc, report) {
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('7-DAY DETAILED CULTIVATION SCHEDULE', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            
+            let yPosition = 50;
+            
+            report.dailySchedule.forEach((day, index) => {
+                // Check if we need a new page
+                if (yPosition > 250) {
+                    doc.addPage();
+                    yPosition = 30;
+                }
+                
+                // Day header
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text(`Day ${day.day}: ${day.stage}`, 20, yPosition);
+                
+                // Date and time
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                doc.text(`Date: ${day.date} | Time: ${day.time}`, 20, yPosition + 8);
+                
+                // Activities
+                doc.setFontSize(11);
+                doc.setFont('helvetica', 'bold');
+                doc.text('Activities:', 20, yPosition + 18);
+                
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                day.activities.forEach((activity, actIndex) => {
+                    doc.text(`• ${activity}`, 25, yPosition + 28 + (actIndex * 6));
+                });
+                
+                // Fertilizers
+                if (day.fertilizers && day.fertilizers.length > 0) {
+                    doc.setFontSize(11);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('Fertilizer Applications:', 20, yPosition + 28 + (day.activities.length * 6) + 10);
+                    
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'normal');
+                    day.fertilizers.forEach((fertilizer, fertIndex) => {
+                        const fertY = yPosition + 28 + (day.activities.length * 6) + 20 + (fertIndex * 12);
+                        doc.text(`${fertilizer.type}: ${fertilizer.quantity} kg/ha`, 25, fertY);
+                        doc.text(`Application: ${fertilizer.application}`, 25, fertY + 6);
+                    });
+                    
+                    yPosition += 28 + (day.activities.length * 6) + 20 + (day.fertilizers.length * 12) + 20;
+                } else {
+                    yPosition += 28 + (day.activities.length * 6) + 20;
+                }
+            });
+        }
+        
+        function addNutrientAnalysis(doc, report) {
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('NUTRIENT ANALYSIS', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            
+            const nutrients = report.nutrients;
+            let yPosition = 50;
+            
+            if (report.preference === 'Organic' && nutrients.organic_details) {
+                const organic = nutrients.organic_details;
+                
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('Organic Farming Analysis', 20, yPosition);
+                yPosition += 15;
+                
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'normal');
+                doc.text(`Total Organic Matter: ${organic.total_organic_matter} kg/ha`, 20, yPosition);
+                yPosition += 10;
+                
+                doc.text('Organic Fertilizers:', 20, yPosition);
+                yPosition += 10;
+                
+                Object.entries(organic.fertilizers).forEach(([key, fertilizer]) => {
+                    doc.text(`${key.replace(/_/g, ' ').toUpperCase()}: ${fertilizer.quantity} kg/ha`, 25, yPosition);
+                    yPosition += 8;
+                });
+                
+            } else if (report.preference === 'Inorganic' && nutrients.npk_nutrients) {
+                const npk = nutrients.npk_nutrients;
+                
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('NPK Nutrient Analysis', 20, yPosition);
+                yPosition += 15;
+                
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'normal');
+                doc.text(`Nitrogen (N): ${npk.nitrogen.value} kg/ha`, 20, yPosition);
+                doc.text(`Phosphorus (P): ${npk.phosphorus.value} kg/ha`, 20, yPosition + 10);
+                doc.text(`Potassium (K): ${npk.potassium.value} kg/ha`, 20, yPosition + 20);
+                doc.text(`Total NPK: ${npk.total_npk} kg/ha`, 20, yPosition + 30);
+                yPosition += 50;
+                
+            } else if (report.preference === 'Mixed' && nutrients.mixed_details) {
+                const mixed = nutrients.mixed_details;
+                
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('Mixed Farming Analysis', 20, yPosition);
+                yPosition += 15;
+                
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'normal');
+                doc.text(`Organic Ratio: ${mixed.organic_ratio}`, 20, yPosition);
+                doc.text(`Inorganic Ratio: ${mixed.inorganic_ratio}`, 20, yPosition + 10);
+                yPosition += 25;
+            }
+        }
+        
+        function addWeatherAnalysis(doc, report) {
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('WEATHER ANALYSIS', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            
+            let yPosition = 50;
+            
+            if (report.weather && report.weather.length > 0) {
+                doc.text('7-Day Weather Forecast:', 20, yPosition);
+                yPosition += 15;
+                
+                report.weather.forEach((day, index) => {
+                    if (yPosition > 250) {
+                        doc.addPage();
+                        yPosition = 30;
+                    }
+                    
+                    doc.text(`Day ${index + 1}: ${day.temperature}°C, ${day.humidity}% humidity`, 20, yPosition);
+                    doc.text(`Rainfall: ${day.rainfall}mm, ${day.description}`, 20, yPosition + 8);
+                    yPosition += 20;
+                });
+            } else {
+                doc.text('Weather data not available for this analysis.', 20, yPosition);
+            }
+        }
+        
+        function addRecommendations(doc, report) {
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('RECOMMENDATIONS', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            
+            const recommendations = [
+                'Based on the comprehensive analysis, the following recommendations are made:',
+                '',
+                '1. Cultivation Schedule:',
+                '   • Follow the detailed 7-day schedule provided',
+                '   • Monitor soil conditions daily',
+                '   • Adjust watering based on weather conditions',
+                '',
+                '2. Nutrient Management:',
+                `   • Use ${report.preference} farming methodology`,
+                '   • Apply fertilizers according to the daily schedule',
+                '   • Monitor plant response to nutrient applications',
+                '',
+                '3. Weather Considerations:',
+                '   • Monitor daily weather forecasts',
+                '   • Adjust activities based on rainfall predictions',
+                '   • Protect crops during extreme weather conditions',
+                '',
+                '4. Quality Control:',
+                '   • Regular soil testing',
+                '   • Plant health monitoring',
+                '   • Yield tracking and optimization'
+            ];
+            
+            recommendations.forEach((line, index) => {
+                doc.text(line, 20, 50 + (index * 8));
+            });
+        }
+        
+        function addAppendices(doc, report) {
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('APPENDICES', 20, 30);
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            
+            const appendices = [
+                'Appendix A: Technical Specifications',
+                `• Crop: ${report.crop}`,
+                `• Season: ${report.season}`,
+                `• Soil Type: ${report.soil}`,
+                `• Location: ${report.location}`,
+                `• Coordinates: ${report.coordinates}`,
+                '',
+                'Appendix B: Data Sources',
+                '• Machine Learning Models: Random Forest, XGBoost',
+                '• Weather Data: OpenWeatherMap API',
+                '• Soil Data: Agricultural databases',
+                '• Crop Requirements: Scientific literature',
+                '',
+                'Appendix C: Contact Information',
+                '• Report Generated: AI-Powered Agricultural Intelligence System',
+                `• Report ID: ${report.reportId}`,
+                `• Generated: ${new Date(report.generatedAt).toLocaleString()}`
+            ];
+            
+            appendices.forEach((line, index) => {
+                doc.text(line, 20, 50 + (index * 8));
+            });
+        }
+        
+        function printReport() {
+            window.print();
+        }
+        
+        function shareReport() {
+            console.log('shareReport function called');
+            
+            // Generate and share PDF report
+            const shareBtn = document.querySelector('button[onclick="shareReport()"]');
+            if (!shareBtn) {
+                console.error('Share button not found');
+                alert('Share button not found. Please refresh the page.');
+                return;
+            }
+            
+            const originalText = shareBtn.innerHTML;
+            shareBtn.innerHTML = '📤 Generating PDF...';
+            shareBtn.disabled = true;
+            
+            try {
+                console.log('Checking data availability...');
+                console.log('window.recommendationData:', window.recommendationData);
+                console.log('window.jspdf:', window.jspdf);
+                
+                // Check if recommendationData is available
+                if (!window.recommendationData) {
+                    throw new Error('Recommendation data not available. Please refresh the page and try again.');
+                }
+                
+                // Check if jsPDF is loaded
+                if (!window.jspdf) {
+                    throw new Error('PDF library not loaded. Please refresh the page and try again.');
+                }
+                
+                console.log('Starting PDF generation...', window.recommendationData);
+                
+                // Create comprehensive scientific report
+                const report = createScientificReport();
+                console.log('Scientific report created:', report);
+                
+                // Generate PDF using jsPDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                console.log('PDF document created');
+                
+                // Set up fonts and styles
+                doc.setFont('helvetica');
+                console.log('Font set to helvetica');
+                
+                // Add title page
+                console.log('Adding title page...');
+                addTitlePage(doc, report);
+                
+                // Add table of contents
+                console.log('Adding table of contents...');
+                doc.addPage();
+                addTableOfContents(doc, report);
+                
+                // Add executive summary
+                console.log('Adding executive summary...');
+                doc.addPage();
+                addExecutiveSummary(doc, report);
+                
+                // Add methodology
+                console.log('Adding methodology...');
+                doc.addPage();
+                addMethodology(doc, report);
+                
+                // Add 7-day detailed schedule
+                console.log('Adding detailed schedule...');
+                doc.addPage();
+                addDetailedSchedule(doc, report);
+                
+                // Add nutrient analysis
+                console.log('Adding nutrient analysis...');
+                doc.addPage();
+                addNutrientAnalysis(doc, report);
+                
+                // Add weather analysis
+                console.log('Adding weather analysis...');
+                doc.addPage();
+                addWeatherAnalysis(doc, report);
+                
+                // Add recommendations
+                console.log('Adding recommendations...');
+                doc.addPage();
+                addRecommendations(doc, report);
+                
+                // Add appendices
+                console.log('Adding appendices...');
+                doc.addPage();
+                addAppendices(doc, report);
+                
+                // Convert PDF to blob for sharing
+                const pdfBlob = doc.output('blob');
+                const fileName = `Crop_Recommendation_Report_${report.crop}_${report.location}_${new Date().toISOString().split('T')[0]}.pdf`;
+                
+                // Check if Web Share API supports files
+                if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfBlob] })) {
+                    // Share PDF file directly
+                    navigator.share({
+                        title: `Crop Recommendation Report - ${report.crop}`,
+                        text: `Comprehensive 7-day cultivation schedule for ${report.crop} in ${report.location}`,
+                        files: [new File([pdfBlob], fileName, { type: 'application/pdf' })]
+                    }).then(() => {
+                        console.log('PDF report shared successfully');
+                    }).catch((error) => {
+                        console.error('Error sharing PDF:', error);
+                        // Fallback to download
+                        downloadPDFBlob(pdfBlob, fileName);
+                    });
+                } else if (navigator.share) {
+                    // Share URL with PDF download link
+                    const shareUrl = window.location.href;
+                    navigator.share({
+                        title: `Crop Recommendation Report - ${report.crop}`,
+                        text: `Comprehensive 7-day cultivation schedule for ${report.crop} in ${report.location}. Click to view and download PDF report.`,
+                        url: shareUrl
+                    }).then(() => {
+                        console.log('Report URL shared successfully');
+                    }).catch((error) => {
+                        console.error('Error sharing URL:', error);
+                        // Fallback to download
+                        downloadPDFBlob(pdfBlob, fileName);
+                    });
+                } else {
+                    // Fallback: Download PDF and copy URL
+                    downloadPDFBlob(pdfBlob, fileName);
+                    
+                    // Copy URL to clipboard
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        alert('PDF report downloaded! Report URL copied to clipboard for sharing.');
+                    }).catch(() => {
+                        alert('PDF report downloaded! Please share this URL manually: ' + window.location.href);
+                    });
+                }
+                
+            } catch (error) {
+                console.error('Error generating PDF for sharing:', error);
+                console.error('Error details:', {
+                    message: error.message,
+                    stack: error.stack,
+                    recommendationData: window.recommendationData,
+                    jsPDF: window.jspdf
+                });
+                
+                // Fallback: Try simple URL sharing
+                console.log('Attempting fallback URL sharing...');
+                try {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'Crop Recommendation Report',
+                            text: `Check out this crop recommendation for ${window.recommendationData?.crop || 'your crop'} in ${window.recommendationData?.location_name || 'your location'}`,
+                            url: window.location.href
+                        }).then(() => {
+                            console.log('URL shared successfully');
+                        }).catch((shareError) => {
+                            console.error('URL sharing failed:', shareError);
+                            // Final fallback: copy to clipboard
+                            navigator.clipboard.writeText(window.location.href).then(() => {
+                                alert('Report URL copied to clipboard! You can share this link manually.');
+                            }).catch(() => {
+                                alert('Unable to share. Please copy this URL manually: ' + window.location.href);
+                            });
+                        });
+                    } else {
+                        // Fallback: copy to clipboard
+                        navigator.clipboard.writeText(window.location.href).then(() => {
+                            alert('Report URL copied to clipboard! You can share this link manually.');
+                        }).catch(() => {
+                            alert('Unable to share. Please copy this URL manually: ' + window.location.href);
+                        });
+                    }
+                } catch (fallbackError) {
+                    console.error('Fallback sharing failed:', fallbackError);
+                    alert('Unable to share report. Please copy this URL manually: ' + window.location.href);
+                }
+            } finally {
+                // Restore button state
+                shareBtn.innerHTML = originalText;
+                shareBtn.disabled = false;
+            }
+        }
+        
+        function downloadPDFBlob(blob, fileName) {
+            // Create download link for PDF blob
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        function testShareFunction() {
+            console.log('Test function called');
+            alert('Test function is working! Check console for details.');
+            
+            // Test data availability
+            console.log('Testing data availability:');
+            console.log('- window.recommendationData:', window.recommendationData);
+            console.log('- window.jspdf:', window.jspdf);
+            console.log('- navigator.share:', navigator.share);
+            console.log('- navigator.clipboard:', navigator.clipboard);
+            
+            // Test button selector
+            const shareBtn = document.querySelector('button[onclick="shareReport()"]');
+            console.log('- Share button found:', !!shareBtn);
+            
+            if (shareBtn) {
+                console.log('- Share button text:', shareBtn.innerHTML);
+                console.log('- Share button disabled:', shareBtn.disabled);
+            }
+        }
+        
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', loadRecommendationData);
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Functionality Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <h1>Share Functionality Test</h1>
+    <div id="status"></div>
+    
+    <button onclick="testBasicShare()">Test Basic Share</button>
+    <button onclick="testPDFGeneration()">Test PDF Generation</button>
+    <button onclick="testDataAvailability()">Test Data Availability</button>
+    
+    <div id="results"></div>
+
+    <script>
+        // Mock recommendation data for testing
+        window.recommendationData = {
+            id: 59,
+            crop: 'Maize',
+            season: 'Kharif',
+            soil: 'Loamy',
+            preference: 'Organic',
+            location_name: 'Nagpur',
+            latitude: 21.1458,
+            longitude: 79.0882,
+            yield_prediction: 4500,
+            preferred_technique: 'Organic',
+            nutrient_report: {
+                method: 'Organic',
+                organic_details: {
+                    fertilizers: {
+                        compost: { quantity: 100, application: 'Base application' },
+                        farmyard_manure: { quantity: 50, application: 'Top dressing' }
+                    }
+                }
+            },
+            weather_7day: [
+                { date: '2025-10-12', temperature: 28, humidity: 65 },
+                { date: '2025-10-13', temperature: 30, humidity: 60 }
+            ],
+            step_by_step_guide: 'Test guide for maize cultivation'
+        };
+
+        function updateStatus(message) {
+            document.getElementById('status').innerHTML = '<p>' + message + '</p>';
+            console.log(message);
+        }
+
+        function testBasicShare() {
+            updateStatus('Testing basic share functionality...');
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Test Share',
+                    text: 'This is a test share',
+                    url: window.location.href
+                }).then(() => {
+                    updateStatus('✅ Basic share successful!');
+                }).catch((error) => {
+                    updateStatus('❌ Basic share failed: ' + error.message);
+                });
+            } else {
+                updateStatus('❌ Navigator.share not supported');
+            }
+        }
+
+        function testPDFGeneration() {
+            updateStatus('Testing PDF generation...');
+            
+            try {
+                if (!window.jspdf) {
+                    throw new Error('jsPDF not loaded');
+                }
+                
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                
+                doc.setFont('helvetica');
+                doc.setFontSize(16);
+                doc.text('Test PDF Generation', 20, 20);
+                doc.text('Generated at: ' + new Date().toISOString(), 20, 40);
+                
+                // Save the PDF
+                doc.save('test_share_pdf.pdf');
+                updateStatus('✅ PDF generation successful!');
+                
+            } catch (error) {
+                updateStatus('❌ PDF generation failed: ' + error.message);
+            }
+        }
+
+        function testDataAvailability() {
+            updateStatus('Testing data availability...');
+            
+            const results = [];
+            results.push('jsPDF loaded: ' + (!!window.jspdf));
+            results.push('Recommendation data: ' + (!!window.recommendationData));
+            results.push('Navigator.share: ' + (!!navigator.share));
+            results.push('Navigator.clipboard: ' + (!!navigator.clipboard));
+            
+            document.getElementById('results').innerHTML = '<ul><li>' + results.join('</li><li>') + '</li></ul>';
+            updateStatus('✅ Data availability test completed');
+        }
+
+        // Test on page load
+        window.addEventListener('load', function() {
+            updateStatus('Page loaded. Ready for testing.');
+            testDataAvailability();
+        });
+    </script>
+</body>
+</html>
+
+
+

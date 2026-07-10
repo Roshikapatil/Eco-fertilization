@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Generation Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <h1>PDF Generation Test</h1>
+    <button onclick="testPDFGeneration()">Test PDF Generation</button>
+    <div id="result"></div>
+
+    <script>
+        function testPDFGeneration() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing PDF generation...';
+            
+            try {
+                // Check if jsPDF is loaded
+                if (!window.jspdf) {
+                    throw new Error('jsPDF library not loaded');
+                }
+                
+                console.log('jsPDF library loaded:', window.jspdf);
+                
+                // Create a simple PDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                
+                // Add some content
+                doc.setFont('helvetica');
+                doc.setFontSize(16);
+                doc.text('Test PDF Generation', 20, 20);
+                doc.setFontSize(12);
+                doc.text('This is a test PDF to verify jsPDF is working correctly.', 20, 40);
+                doc.text('Generated at: ' + new Date().toISOString(), 20, 60);
+                
+                // Save the PDF
+                doc.save('test_pdf_generation.pdf');
+                
+                resultDiv.innerHTML = '<p style="color: green;">✅ PDF generation successful! Check your downloads folder.</p>';
+                
+            } catch (error) {
+                console.error('PDF generation error:', error);
+                resultDiv.innerHTML = `<p style="color: red;">❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Test on page load
+        window.addEventListener('load', function() {
+            console.log('Page loaded, jsPDF available:', !!window.jspdf);
+        });
+    </script>
+</body>
+</html>
+
+
+
